@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaccaLearn - Exam Preparation</title>
+    <link rel="stylesheet" href="Dignitary.css">
+    <link rel="Dignitary Jeremiah JAVA" href="Dignitary Jeremiah.js">
+
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+
+            <h1>BaccaLearn</h1>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="Log_in.html">log in</a></li>
+            </ul>
+
+        </nav>
+    </header>
+
+
+
+    <script>
+        // Mobile menu toggle
+        const toggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('mainNav');
+        toggle.addEventListener('click', () => {
+            nav.classList.toggle('show');
+        });
+
+        // small accessible skip to content behaviour (optional)
+        // if you later add skip links, you can manage focus here.
+    </script>
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <h2>Welcome to BaccaLearn</h2>
+        <p>Your smart preparation hub for Baccalaureate Exams</p>
+
+    </section>
+
+
+
+
+    <!-- Resources Section -->
+    <section id="resources" class="content">
+        <h2>Study Resources</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>📘 Books</h3>
+                <p>Access free books and study guides online.</p>
+                <a href="dropdown.html">View Books</a>
+            </div>
+            <div class="card">
+                <h3>📄 Past Papers</h3>
+                <p>Practice with previous Baccalaureate exam questions.</p>
+                <a href="Past questions.html">View Past Papers</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="content">
+        <h2>Quick Quiz</h2>
+        <p><a href="quiz.html"> click here <br></a> Loading question... </p>
+        <div id="options"></div>
+        <p id="result"></p>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="content">
+        <h2>About BaccaLearn</h2>
+        <p>
+            BaccaLearn is a digital education platform designed to help students
+            preparing for their Baccalaureate exams. We provide resources,
+            past papers, and quizzes to boost your learning.
+        </p>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 BaccaLearn | Built for Students</p>
+    </footer>
+
+    <script src="Dignitary Jeremiah.js"></script>
+
+
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="muted">BaccaLearn • Built by Jeremiah Sahr Komba [Dignitary Jeremiah] — 2025</div>
+        <small class="muted">This is a prototype. For student, integrate secure authentication, a proper wesite for BECE
+            and WASCE student</small>
+    </footer>
+
+    </div>
+
+</body>
+
+</html>
