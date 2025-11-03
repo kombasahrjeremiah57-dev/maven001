@@ -93,6 +93,8 @@ nav ul li a {
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
+  width: 150px;
+  height: 50px;
 }
 
 footer {
@@ -118,9 +120,20 @@ footer {
   z-index: 1;
 }
 .Coding_space{
-  background-color: black;
+  background-color: white;
   padding: 20px;
+  border: 5px solid white;
   border-radius: 10px;
-  box-shadow: #333;
   max-width: 250px;
+  border: none;
+}
+.coding4good {
+  background-color: #ff6600;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  height: 50px;
+  width: 150px;
 }
