@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VS Code Workspace</title>
+    <link rel="stylesheet" href="coding.css">
+
+</head>
+
+<body>
+
+    <div class="topbar">
+        <div>VS Code Clone</div>
+        <div>File | Edit | View | Help</div>
+    </div>
+
+    <div class="main">
+        <div class="sidebar">
+            <button title="Explorer">📁</button>
+            <button title="Search">🔍</button>
+            <button title="Source Control">🧩</button>
+            <button title="Run">▶️</button>
+            <button title="Settings">⚙️</button>
+        </div>
+
+        <div class="explorer">
+            <h3>Explorer</h3>
+            <div class="file" onclick="openFile('index.html')">index.html</div>
+            <div class="file" onclick="openFile('style.css')">style.css</div>
+            <div class="file" onclick="openFile('script.js')">script.js</div>
+        </div>
+
+        <div class="editor">
+            <div class="tab-bar">
+                <div class="tab active" id="tab">index.html</div>
+            </div>
+            <textarea id="editorArea">
+<!-- Start coding here -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World</title>
+  </head>
+  <body>
+    <h1>Hello from your VS Code Clone!</h1>
+  </body>
+</html>
+      </textarea>
+        </div>
+    </div>
+
+    <div class="bottombar">
+        <span>UTF-8 | HTML | Spaces: 2</span>
+    </div>
+
+    <script>
+        function openFile(filename) {
+            document.getElementById('tab').innerText = filename;
+            const editor = document.getElementById('editorArea');
+            editor.value = `<!-- Editing ${filename} -->\n\n`;
+        }
+    </script>
