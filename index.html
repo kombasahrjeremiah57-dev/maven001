@@ -7,6 +7,17 @@
     <title>BaccaLearn - Exam Preparation</title>
     <link rel="stylesheet" href="Dignitary.css">
     <link rel="Dignitary Jeremiah JAVA" href="Dignitary Jeremiah.js">
+        <script>
+            // Simple client-side auth guard: if not logged, send to login page
+            (function(){
+                try {
+                    var logged = localStorage.getItem('loggedIn');
+                    if (!logged || logged !== 'true') {
+                        location.replace('Log_in.html');
+                    }
+                } catch (e) { console.warn('Auth guard error', e); }
+            })();
+        </script>
 
 
 </head>
@@ -31,17 +42,39 @@
 
 
 
-    <script>
-        // Mobile menu toggle
-        const toggle = document.getElementById('menuToggle');
-        const nav = document.getElementById('mainNav');
-        toggle.addEventListener('click', () => {
-            nav.classList.toggle('show');
-        });
+        <script>
+                // Mobile menu toggle (guarded)
+                (function(){
+                    const toggle = document.getElementById('menuToggle');
+                    const nav = document.getElementById('mainNav');
+                    if (toggle && nav && toggle.addEventListener) {
+                        toggle.addEventListener('click', function(){ nav.classList.toggle('show'); });
+                    }
 
-        // small accessible skip to content behaviour (optional)
-        // if you later add skip links, you can manage focus here.
-    </script>
+                    // small accessible skip to content behaviour (optional)
+                    // if you later add skip links, you can manage focus here.
+                })();
+        </script>
+
+        <script>
+            // Replace 'Log_in.html' link with Logout when authenticated
+            (function(){
+                try {
+                    var loginLink = document.querySelector('a[href="Log_in.html"]');
+                    var username = localStorage.getItem('username');
+                    var logged = localStorage.getItem('loggedIn');
+                    if (logged === 'true' && loginLink) {
+                        loginLink.textContent = 'Logout (' + (username || 'me') + ')';
+                        loginLink.href = '#';
+                        loginLink.addEventListener('click', function(ev){
+                            ev.preventDefault();
+                            try { localStorage.removeItem('loggedIn'); localStorage.removeItem('username'); } catch(e){}
+                            location.replace('Log_in.html');
+                        });
+                    }
+                } catch (e) { console.warn('Auth UI script failed', e); }
+            })();
+        </script>
     <!-- Home Section -->
     <section id="home" class="hero">
         <h2>Welcome to BaccaLearn</h2>
