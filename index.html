@@ -8,6 +8,25 @@
     <link rel="stylesheet" href="Dignitary.css">
     <link rel="Dignitary Jeremiah JAVA" href="Dignitary Jeremiah.js">
 
+    <script>
+        // Redirect to login page if not authenticated (client-side demo)
+        (function () {
+            try {
+                // If user is not logged in, send them to the login page.
+                var logged = localStorage.getItem('loggedIn');
+                if (!logged || logged !== 'true') {
+                    // If the current page is already the login page, do not redirect.
+                    if (!/Log_in\.html$/.test(location.pathname)) {
+                        location.replace('Log_in.html');
+                    }
+                }
+            } catch (e) {
+                // localStorage might be unavailable; fail open.
+                console.warn('Auth check failed', e);
+            }
+        })();
+    </script>
+
 
 </head>
 
@@ -23,7 +42,7 @@
                 <li><a href="resources.html">Resources</a></li>
                 <li><a href="quiz.html">Quiz</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="Log_in.html">log in</a></li>
+                <li id="authItem"><a id="authLink" href="Log_in.html">Log in</a></li>
             </ul>
 
         </nav>
@@ -60,7 +79,7 @@
                 <h3>📘 Books</h3>
                 <p>Access free books and study guides online.</p>
                 <br>
-                <a href="dropdown.html">View Books</a>
+                <a href="typebook.html">View Books</a>
             </div>
             <div class="card">
                 <h3>📄 Past Papers</h3>
@@ -85,7 +104,7 @@
     <!-- Quiz Section -->
     <section id="quiz" class="content">
         <h2>Quick Quiz</h2>
-        <p><a href="quiz.html"> click here <br></a> Loading question... </p>
+        <p><a href="prequiz.html"> click here <br></a> Loading question... </p>
         <div id="options"></div>
         <p id="result"></p>
     </section>
@@ -108,7 +127,34 @@
 
     <script src="Dignitary Jeremiah.js"></script>
 
-
+    <script>
+        // Replace the login link with a logout action when user is authenticated
+        (function () {
+            try {
+                var authLink = document.getElementById('authLink');
+                var authItem = document.getElementById('authItem');
+                var username = localStorage.getItem('username');
+                var logged = localStorage.getItem('loggedIn');
+                if (logged === 'true') {
+                    if (authLink) {
+                        authLink.textContent = 'Logout (' + (username || 'me') + ')';
+                        authLink.href = '#';
+                        authLink.addEventListener('click', function (ev) {
+                            ev.preventDefault();
+                            try { localStorage.removeItem('loggedIn'); localStorage.removeItem('username'); } catch (e) { }
+                            // Send back to login page
+                            location.replace('Log_in.html');
+                        });
+                    }
+                } else {
+                    // ensure it points to login page
+                    if (authLink) authLink.href = 'Log_in.html';
+                }
+            } catch (e) {
+                console.warn('Auth UI update failed', e);
+            }
+        })();
+    </script>
 
     <!-- FOOTER -->
     <footer>

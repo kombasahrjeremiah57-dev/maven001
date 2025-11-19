@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Choose: BECE or WASSCE</title>
+    <style>
+        :root {
+            --bg: #0f1724;
+            --card: #0b1220;
+            --muted: #9aa4b2;
+            --accent: #0ea5a4;
+            --glass: rgba(255, 255, 255, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+            background: linear-gradient(180deg, #071024 0%, #091525 100%);
+            color: #e6eef6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: clamp(0.9rem, 1vw + 0.4rem, 1.2rem);
+            color: var(--muted);
+        }
+
+        .choices {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            justify-content: center;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 24px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 35px rgba(2, 6, 23, 0.6);
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            background: var(--glass);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        .meta h2 {
+            font-size: clamp(1.1rem, 1vw + 0.5rem, 1.6rem);
+            margin-bottom: 6px;
+        }
+
+        .meta p {
+            font-size: clamp(0.9rem, 1vw + 0.3rem, 1.1rem);
+            color: var(--muted);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        a.btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #052022;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 1vw + 0.3rem, 1rem);
+            transition: background 0.2s ease;
+        }
+
+        a.btn:hover {
+            background: #14b8b8;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: var(--muted);
+            font-size: clamp(0.8rem, 0.6vw + 0.5rem, 1rem);
+        }
+
+        /* Responsive layout for very small devices */
+        @media (max-width: 480px) {
+            .logo {
+                width: 60px;
+                height: 60px;
+                font-size: 22px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+        }
+
+        /* For large screens */
+        @media (min-width: 1200px) {
+            .choices {
+                gap: 40px;
+            }
+
+            .card {
+                padding: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Choose an Exam Level</h1>
+            <p>Select <strong>BECE</strong> (Junior) or <strong>WASSCE</strong> (Senior) to continue.</p>
+        </header>
+
+        <section class="choices">
+            <article class="card">
+                <div class="logo">B</div>
+                <div class="meta">
+                    <h2>BECE (Junior Secondary)</h2>
+                    <p>For students finishing junior secondary school. Prepares for the Basic Education Certificate
+                        Examination.</p>
+                    <a href="subjectsforbecestudent.html" class="btn">Go to BECE</a>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="logo">W</div>
+                <div class="meta">
+                    <h2>WASSCE (Senior Secondary)</h2>
+                    <p>For senior secondary students preparing for the West African Senior School Certificate
+                        Examination.</p>
+                    <a href="dropdown.html" class="btn">Go to WASSCE</a>
+                </div>
+            </article>
+        </section>
+
+        <footer>
+            Tip: Tap or click on your preferred option to continue.
+        </footer>
+    </div>
+</body>
+
+</html>

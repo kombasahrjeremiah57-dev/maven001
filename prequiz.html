@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Start Quiz — Choose Level & Subject</title>
+    <style>
+        body {
+            font-family: Segoe UI, Roboto, Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(180deg, rgba(11,35,96,0.6), rgba(9,30,77,0.6)), url('flyer.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #0b1220;
+        }
+
+        .box {
+            background: rgba(255,255,255,0.98);
+            padding: 28px;
+            border-radius: 14px;
+            box-shadow: 0 12px 40px rgba(2,6,23,0.35);
+            width: 100%;
+            max-width: 760px;
+            border: 1px solid rgba(11,35,96,0.06);
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 20px
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            color: #374151;
+            font-weight: 600
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e6e9ee;
+            margin-top: 6px
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px
+        }
+
+        .btn {
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: #0b63d6;
+            color: white;
+            border: 0;
+            cursor: pointer
+        }
+
+        .note {
+            color: #6b7280;
+            font-size: 13px;
+            margin-top: 12px
+        }
+        /* responsive tweaks */
+        @media (min-width:900px) {
+            .box { max-width: 900px; display: grid; grid-template-columns: 1fr 420px; gap: 24px; align-items: start }
+            .box .panel-left { padding-right: 8px }
+            .box .panel-right { padding-left: 8px }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="box">
+        <div class="panel-left">
+            <h1 style="margin-top:0">Prepare your Quiz</h1>
+            <p class="note">Choose level and subject for a 60-question WASSCE-style objective quiz. Questions are objective (multiple choice). The interface will advance automatically after each answer; you can also skip or reveal the correct answer.</p>
+
+            <label for="level">Select Level</label>
+            <select id="level">
+                <option value="WASSCE">WASSCE</option>
+                <option value="BECE">BECE</option>
+            </select>
+
+            <label for="subject">Choose Subject</label>
+            <select id="subject">
+                <!-- populated by script -->
+            </select>
+
+            <div class="row">
+                <button id="start" class="btn">Start Quiz</button>
+                <button id="back" class="btn" style="background:#e6eefc;color:#0b63d6">Back</button>
+            </div>
+
+            <p class="note">Tip: Use the "Show Answer" or "Skip" buttons during the quiz if you want to move on.</p>
+        </div>
+
+        <aside class="panel-right" style="display:none">
+            <!-- decorative panel, visible on wide screens -->
+            <h2 style="margin-top:0">How this works</h2>
+            <ul style="color:#374151">
+                <li>60 objective questions shuffled from subject-specific pools.</li>
+                <li>Auto-advance after a brief feedback period.</li>
+                <li>Skip any question and show the correct answer instantly.</li>
+                <li>Final score and letter grade displayed at the end.</li>
+            </ul>
+        </aside>
+    </main>
+
+    <script>
+        // ---- Setup selection lists ----
+        const subjects = {
+            WASSCE: ['Mathematics', 'English', 'Biology', 'Chemistry', 'Physics', 'Economics', 'History', 'Geography', 'Accounting', 'Integrated Science'],
+            BECE: ['Mathematics', 'English', 'Integrated Science', 'Social Studies', 'Basic Design', 'Pre-Technical Skills', 'Ghanaian Languages', 'Religious and Moral Education']
+        };
+
+        const levelEl = document.getElementById('level');
+        const subjectEl = document.getElementById('subject');
+        const startBtn = document.getElementById('start');
+        const backBtn = document.getElementById('back');
+
+        function populate() {
+            const list = subjects[levelEl.value] || [];
+            subjectEl.innerHTML = '';
+            list.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; subjectEl.appendChild(o) });
+        }
+
+        levelEl.addEventListener('change', populate);
+        populate();
+
+        // ---- WASSCE-style objective question banks (sample past-objective style) ----
+        const questionBank = {
+            Mathematics: [
+                {q: 'The value of (3x + 5) when x = 4 is:', a: ['17','16','15','14'], correct:0, e:'3×4+5 = 12+5 = 17.'},
+                {q: 'What is the median of 3, 7, 9, 12, 14?', a: ['9','8','7','10'], correct:0, e:'Median (middle value) is 9.'},
+                {q: 'If y = 2x and x = 5, y = ?', a: ['7','8','9','10'], correct:3, e:'y = 2×5 = 10.'},
+                {q: 'Solve: 5(2 + x) = 35. x = ?', a: ['6','7','5','8'], correct:0, e:'5(2+x)=35 → 2+x=7 → x=5.'},
+                {q: 'The area of a rectangle with length 8 and breadth 5 is:', a: ['13','40','26','20'], correct:1, e:'Area = 8×5 = 40.'},
+                {q: 'What is 25% of 240?', a: ['40','50','60','30'], correct:2, e:'25% = 1/4 of 240 = 60.'},
+                {q: 'If 3/4 = 0.75, what is 1/8 as a decimal?', a: ['0.125','0.25','0.0125','0.5'], correct:0, e:'1/8 = 0.125.'},
+                {q: 'The L.C.M of 6 and 8 is:', a: ['24','48','12','14'], correct:0, e:'LCM(6,8)=24.'},
+                {q: 'If angle A is 90°, a complementary angle is:', a: ['90°','0°','45°','cannot be determined'], correct:1, e:'Complementary angles sum to 90° so complementary to 90° is 0°.'},
+                {q: 'The value of 2³ × 2² is:', a: ['2⁵','2⁶','2⁴','2³'], correct:0, e:'Add exponents: 3+2 = 5.'}
+            ],
+            English: [
+                {q: 'Choose the correct plural: "Child" →', a: ['Childs','Children','Childes','Childer'], correct:1, e:'Plural of child is children.'},
+                {q: 'Select the correct spelling:', a: ['Occasion','Ocassion','Occasionn','Ocasin'], correct:0, e:'Correct spelling is "Occasion".'},
+                {q: 'Choose the opposite of "ancient".', a: ['Old','Modern','Historic','Antique'], correct:1, e:'Opposite of ancient is modern.'},
+                {q: 'Which word is a verb?', a: ['Happy','Run','Blue','Tall'], correct:1, e:'"Run" is a verb.'},
+                {q: 'Pick the correct article: "___ apple a day"', a: ['A','An','The','No article'], correct:1, e:'"An" before vowel sound.'},
+                {q: 'Fill: He ___ to school yesterday.', a: ['go','goes','went','gone'], correct:2, e:'Past tense: went.'},
+                {q: 'Which is a conjunction?', a: ['And','Run','Blue','Quickly'], correct:0, e:'"And" connects words/phrases.'},
+                {q: 'Choose correct preposition: "She is good ___ maths"', a: ['in','at','on','for'], correct:1, e:'"Good at" is correct collocation.'}
+            ],
+            Biology: [
+                {q: 'Which of the following is a producer?', a: ['Rabbit','Grass','Snake','Human'], correct:1, e:'Grass (plant) produces food by photosynthesis.'},
+                {q: 'Which organ is responsible for gaseous exchange?', a: ['Kidney','Lungs','Liver','Heart'], correct:1, e:'Lungs exchange O₂ and CO₂.'},
+                {q: 'Which blood cells fight infection?', a: ['Red blood cells','White blood cells','Platelets','Plasma'], correct:1, e:'White blood cells defend the body.'},
+                {q: 'Photosynthesis mainly occurs in which part of plant?', a: ['Root','Leaf','Stem','Flower'], correct:1, e:'Leaves contain chlorophyll for photosynthesis.'}
+            ],
+            Chemistry: [
+                {q: 'Which is an acidic substance?', a: ['Lemon juice','Soap','Milk of magnesia','Water'], correct:0, e:'Lemon juice contains citric acid.'},
+                {q: 'Salt is formed by reaction between an acid and a ___', a: ['Base','Metal','Gas','Alcohol'], correct:0, e:'Acid + base → salt + water.'},
+                {q: 'H2O is the chemical formula for:', a: ['Hydrogen','Oxygen','Water','Hydroxide'], correct:2, e:'H2O represents water.'}
+            ],
+            Physics: [
+                {q: 'Which instrument measures temperature?', a: ['Barometer','Thermometer','Ammeter','Ruler'], correct:1, e:'Thermometer measures temperature.'},
+                {q: 'Light travels fastest in:', a: ['Air','Water','Glass','Vacuum'], correct:3, e:'Light travels fastest in vacuum.'},
+                {q: 'The SI unit of force is:', a: ['Newton','Joule','Watt','Pascal'], correct:0, e:'Force unit is Newton (N).'}
+            ],
+            Economics: [
+                {q: 'Demand means the quantity of a commodity that consumers are willing and able to ___ at a given price.', a: ['Buy','Produce','Sell','Store'], correct:0, e:'Demand refers to willingness and ability to buy.'},
+                {q: 'A fall in supply leads to ___ prices (ceteris paribus).', a: ['Lower','Higher','No change','Impossible to tell'], correct:1, e:'Reduced supply with same demand tends to raise prices.'}
+            ],
+            History: [
+                {q: 'The Transatlantic slave trade mainly involved which continents?', a: ['Asia & Europe','Africa & Americas','Europe & Asia','Oceania & Africa'], correct:1, e:'It transported enslaved people from Africa to the Americas.'},
+                {q: 'The colonial period in West Africa intensified during which century?', a: ['15th','19th','12th','10th'], correct:1, e:'European colonisation intensified in the 19th century.'}
+            ],
+            Geography: [
+                {q: 'Which is the longest river in the world?', a: ['Amazon','Nile','Volga','Yangtze'], correct:1, e:'Nile is commonly cited as the longest river.'},
+                {q: 'Which climate zone has highest rainfall?', a: ['Desert','Tropical rainforest','Tundra','Mediterranean'], correct:1, e:'Tropical rainforest zones get heavy rainfall.'}
+            ],
+            Accounting: [
+                {q: 'Which of these is recorded on the debit side of a ledger for an asset increase?', a: ['Credit','Debit','Contra','None'], correct:1, e:'Increase in assets is debited.'},
+                {q: 'Revenue minus expenses equals:', a: ['Capital','Profit','Liability','Asset'], correct:1, e:'Profit = Revenue - Expenses.'}
+            ],
+            'Integrated Science': [
+                {q: 'Which shows a physical change?', a: ['Wood burning','Melting ice','Rusting iron','Milk souring'], correct:1, e:'Melting is physical; substances keep identity.'},
+                {q: 'Which gas do plants take in for photosynthesis?', a: ['Oxygen','Nitrogen','Carbon dioxide','Hydrogen'], correct:2, e:'Plants take in CO₂ for photosynthesis.'}
+            ]
+        };
+
+        // ---- UI elements that will display the quiz ----
+        const mainBox = document.querySelector('.box');
+
+        function startQuiz() {
+            const level = levelEl.value;
+            const subject = subjectEl.value;
+            // Build pool: take subject-specific pool, fallback to a small generic pool
+            const pool = (questionBank[subject] && questionBank[subject].slice()) || [];
+            // If subject-specific pool is empty, try a default set
+            if (pool.length === 0) {
+                pool.push({q:'Sample question: 2+2 = ?', a:['3','4','5','2'], correct:1, e:'2+2=4.'});
+            }
+
+            // Generate list of 60 questions: shuffle and repeat as needed
+            const target = 60;
+            let generated = [];
+            function shuffle(arr) {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+            }
+
+            // Repeat copies until target reached
+            while (generated.length < target) {
+                const copy = pool.map(q => ({...q}));
+                shuffle(copy);
+                generated = generated.concat(copy);
+            }
+            generated = generated.slice(0, target);
+
+            // Replace the main box with quiz UI
+            mainBox.innerHTML = `
+                <h1>${level} — ${subject} Quiz</h1>
+                <div id="status" style="color:#374151;margin-top:6px">Question <span id="qidx">1</span> / ${target}</div>
+                <div id="question" style="margin-top:12px;font-weight:600"></div>
+                <div id="choices" style="margin-top:10px"></div>
+                <div style="display:flex;gap:8px;margin-top:12px"><button id="skip" class="btn" style="background:#e6eefc;color:#0b5ed7">Skip</button><button id="show" class="btn" style="background:#fff;color:#0b63d6;border:1px solid #e6e9ee">Show Answer</button></div>
+                <div id="feedback" style="margin-top:12px;font-weight:700"></div>
+                <div id="end" style="margin-top:16px"></div>
+            `;
+
+            // Quiz state
+            let index = 0;
+            let score = 0;
+
+            const qIdxEl = document.getElementById('qidx');
+            const questionEl = document.getElementById('question');
+            const choicesEl = document.getElementById('choices');
+            const feedbackEl = document.getElementById('feedback');
+            const skipBtn = document.getElementById('skip');
+            const showBtn = document.getElementById('show');
+            const endEl = document.getElementById('end');
+
+            function renderQuestion() {
+                const item = generated[index];
+                qIdxEl.textContent = (index + 1);
+                questionEl.textContent = item.q;
+                choicesEl.innerHTML = '';
+                feedbackEl.textContent = '';
+                item.a.forEach((opt, i) => {
+                    const b = document.createElement('button');
+                    b.className = 'btn';
+                    b.style.background = '#f3f4f6';
+                    b.style.color = '#111827';
+                    b.style.border = '1px solid #e6e9ee';
+                    b.style.display = 'block';
+                    b.style.width = '100%';
+                    b.style.textAlign = 'left';
+                    b.style.marginTop = '8px';
+                    b.textContent = opt;
+                    b.onclick = () => handleAnswer(i);
+                    choicesEl.appendChild(b);
+                });
+            }
+
+            function showCorrect() {
+                const item = generated[index];
+                feedbackEl.style.color = '#059669';
+                feedbackEl.textContent = `Answer: ${item.a[item.correct]} — ${item.e || ''}`;
+            }
+
+            function handleAnswer(choice) {
+                const item = generated[index];
+                const correct = item.correct;
+                if (choice === correct) {
+                    score++;
+                    feedbackEl.style.color = '#059669';
+                    feedbackEl.textContent = 'Correct ✓ ' + (item.e ? ('— ' + item.e) : '');
+                } else {
+                    feedbackEl.style.color = '#dc2626';
+                    feedbackEl.textContent = 'Incorrect ✕';
+                    // show the correct answer as well
+                    setTimeout(() => {
+                        feedbackEl.textContent += ` — Answer: ${item.a[item.correct]}${item.e ? ' — ' + item.e : ''}`;
+                    }, 250);
+                }
+                // Auto-advance after a short delay
+                setTimeout(() => {
+                    index++;
+                    if (index >= generated.length) {
+                        finishQuiz();
+                    } else {
+                        renderQuestion();
+                    }
+                }, 800);
+            }
+
+            function skipQuestion() {
+                feedbackEl.style.color = '#6b7280';
+                feedbackEl.textContent = 'Skipped — correct answer will be shown.';
+                setTimeout(() => {
+                    showCorrect();
+                }, 250);
+                setTimeout(() => {
+                    index++;
+                    if (index >= generated.length) finishQuiz(); else renderQuestion();
+                }, 900);
+            }
+
+            function finishQuiz() {
+                mainBox.innerHTML = `
+                    <h1>Quiz Completed</h1>
+                    <p style="font-weight:600">Score: ${score} / ${generated.length}</p>
+                    <p>${gradeMessage(score, generated.length)}</p>
+                    <div style="margin-top:12px"><button id="retake" class="btn">Retake</button> <button id="home" class="btn" style="background:#e6eefc;color:#0b5ed7">Back</button></div>
+                `;
+                document.getElementById('retake').onclick = () => startQuiz();
+                document.getElementById('home').onclick = () => location.reload();
+            }
+
+            function gradeMessage(s, t) {
+                const pct = Math.round((s / t) * 100);
+                if (pct >= 90) return `Grade: A (${pct}%) — Excellent`;
+                if (pct >= 75) return `Grade: B (${pct}%) — Very Good`;
+                if (pct >= 60) return `Grade: C (${pct}%) — Good`;
+                if (pct >= 50) return `Grade: D (${pct}%) — Fair`;
+                return `Grade: F (${pct}%) — Needs Improvement`;
+            }
+
+            skipBtn.onclick = skipQuestion;
+            showBtn.onclick = showCorrect;
+
+            // initial render
+            renderQuestion();
+        }
+
+        startBtn.addEventListener('click', startQuiz);
+        backBtn.addEventListener('click', () => { history.back(); });
+    </script>
+</body>
+
+</html>
