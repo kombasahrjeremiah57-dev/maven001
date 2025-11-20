@@ -6,18 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BaccaLearn - Exam Preparation</title>
     <link rel="stylesheet" href="Dignitary.css">
+    <link rel="stylesheet" href="responsive.css">
     <link rel="Dignitary Jeremiah JAVA" href="Dignitary Jeremiah.js">
-        <script>
-            // Simple client-side auth guard: if not logged, send to login page
-            (function(){
-                try {
-                    var logged = localStorage.getItem('loggedIn');
-                    if (!logged || logged !== 'true') {
-                        location.replace('Log_in.html');
-                    }
-                } catch (e) { console.warn('Auth guard error', e); }
-            })();
-        </script>
 
 
 </head>
@@ -34,7 +24,7 @@
                 <li><a href="resources.html">Resources</a></li>
                 <li><a href="quiz.html">Quiz</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="Log_in.html">log in</a></li>
+                <!-- login removed per request (no login for now) -->
             </ul>
 
         </nav>
@@ -42,39 +32,17 @@
 
 
 
-        <script>
-                // Mobile menu toggle (guarded)
-                (function(){
-                    const toggle = document.getElementById('menuToggle');
-                    const nav = document.getElementById('mainNav');
-                    if (toggle && nav && toggle.addEventListener) {
-                        toggle.addEventListener('click', function(){ nav.classList.toggle('show'); });
-                    }
+    <script>
+        // Mobile menu toggle
+        const toggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('mainNav');
+        toggle.addEventListener('click', () => {
+            nav.classList.toggle('show');
+        });
 
-                    // small accessible skip to content behaviour (optional)
-                    // if you later add skip links, you can manage focus here.
-                })();
-        </script>
-
-        <script>
-            // Replace 'Log_in.html' link with Logout when authenticated
-            (function(){
-                try {
-                    var loginLink = document.querySelector('a[href="Log_in.html"]');
-                    var username = localStorage.getItem('username');
-                    var logged = localStorage.getItem('loggedIn');
-                    if (logged === 'true' && loginLink) {
-                        loginLink.textContent = 'Logout (' + (username || 'me') + ')';
-                        loginLink.href = '#';
-                        loginLink.addEventListener('click', function(ev){
-                            ev.preventDefault();
-                            try { localStorage.removeItem('loggedIn'); localStorage.removeItem('username'); } catch(e){}
-                            location.replace('Log_in.html');
-                        });
-                    }
-                } catch (e) { console.warn('Auth UI script failed', e); }
-            })();
-        </script>
+        // small accessible skip to content behaviour (optional)
+        // if you later add skip links, you can manage focus here.
+    </script>
     <!-- Home Section -->
     <section id="home" class="hero">
         <h2>Welcome to BaccaLearn</h2>
@@ -118,7 +86,7 @@
     <!-- Quiz Section -->
     <section id="quiz" class="content">
         <h2>Quick Quiz</h2>
-        <p><a href="quiz.html"> click here <br></a> Loading question... </p>
+        <p><a href="prequiz.html"> click here <br></a> Loading question... </p>
         <div id="options"></div>
         <p id="result"></p>
     </section>
@@ -141,7 +109,36 @@
 
     <script src="Dignitary Jeremiah.js"></script>
 
-
+    <script>
+        // Replace the login link with a logout action when user is authenticated
+        (function () {
+            try {
+                var authLink = document.getElementById('authLink');
+                var authItem = document.getElementById('authItem');
+                var username = localStorage.getItem('username');
+                var logged = localStorage.getItem('loggedIn');
+                if (logged === 'true') {
+                    if (authLink) {
+                        authLink.textContent = 'Logout (' + (username || 'me') + ')';
+                        authLink.href = '#';
+                        authLink.addEventListener('click', function (ev) {
+                            ev.preventDefault();
+                            try { localStorage.removeItem('loggedIn'); localStorage.removeItem('username'); } catch (e) { }
+                            // Routing removed: do not navigate. Update UI instead.
+                            authLink.textContent = 'Log in';
+                            authLink.href = 'Log_in.html';
+                            alert('You have been logged out.');
+                        });
+                    }
+                } else {
+                    // ensure it points to login page
+                    if (authLink) authLink.href = 'Log_in.html';
+                }
+            } catch (e) {
+                console.warn('Auth UI update failed', e);
+            }
+        })();
+    </script>
 
     <!-- FOOTER -->
     <footer>
@@ -151,7 +148,46 @@
     </footer>
 
     </div>
+</body>
 
+<!-- Floating dashboard button: top-right corner below navbar -->
+<style>
+    #dashboard-fab {
+        position: fixed;
+        top: 72px;
+        right: 18px;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #0b63d6;
+        color: #fff;
+        text-decoration: none;
+        box-shadow: 0 8px 24px rgba(2, 6, 23, 0.18);
+        font-size: 20px
+    }
+
+    #dashboard-fab:focus {
+        outline: 3px solid rgba(11, 99, 214, 0.22);
+        outline-offset: 3px
+    }
+
+    @media(max-width:520px) {
+        #dashboard-fab {
+            top: 64px;
+            right: 12px;
+            width: 44px;
+            height: 44px;
+            font-size: 18px
+        }
+    }
+</style>
+<a id="dashboard-fab" href="dashboard.html" title="Open Dashboard" aria-label="Open Dashboard">📊</a>
+
+</body>
 </body>
 
 </html>

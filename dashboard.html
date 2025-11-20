@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>BaccaLearn — Individual Performance</title>
+    <link rel="stylesheet" href="responsive.css">
+    <style>
+        :root {
+            --brand: #0b63d6;
+            --muted: #6b7280
+        }
+
+        body {
+            font-family: Segoe UI, Roboto, Arial, sans-serif;
+            margin: 0;
+            background: #f6f8fb;
+            color: #0b1220
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 18px auto;
+            padding: 12px
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.2rem
+        }
+
+        .topbar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 12px
+        }
+
+        select,
+        input {
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #e6e9ee
+        }
+
+        .card {
+            background: #fff;
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
+            margin-top: 12px
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .col {
+            flex: 1;
+            min-width: 220px
+        }
+
+        .col.big {
+            flex: 2
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px
+        }
+
+        th,
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #eef2f7;
+            text-align: left
+        }
+
+        .chart {
+            height: 140px;
+            padding: 10px;
+            border-radius: 8px;
+            background: linear-gradient(180deg, #fff, #f8fafc)
+        }
+
+        .stat {
+            font-size: 1.4rem;
+            font-weight: 700
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: var(--brand);
+            color: #fff;
+            border: 0;
+            cursor: pointer
+        }
+
+        .small {
+            font-size: 0.9rem
+        }
+
+        @media(min-width:900px) {
+            .controls {
+                align-items: center
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <h1>Individual Performance Dashboard</h1>
+            <div class="muted small">Tracks growth per student — data stored locally</div>
+        </header>
+
+        <div class="topbar card">
+            <div class="row" style="width:100%">
+                <div class="col">
+                    <label for="studentSelect">Select Student</label>
+                    <select id="studentSelect">
+                        <option value="">— choose or type —</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="subjectFilter">Subject filter (optional)</label>
+                    <input id="subjectFilter" placeholder="e.g. Mathematics">
+                </div>
+                <div class="col" style="display:flex;align-items:end;gap:8px">
+                    <button id="refresh" class="btn">Refresh</button>
+                    <button id="demo" class="btn">Demo Data</button>
+                    <button id="export" class="btn">Export CSV</button>
+                    <button id="clear" class="btn" style="background:#ef4444">Clear Data</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="profile" class="card">
+            <div class="row">
+                <div class="col big">
+                    <h3 id="studentName">Select a student</h3>
+                    <div class="muted small" id="studentMeta">No data</div>
+
+                    <div style="margin-top:12px" id="progressArea">
+                        <div class="chart" id="lineChart">Sparkline will appear here</div>
+                    </div>
+
+                    <div style="margin-top:12px" id="subjectBreakdown"></div>
+                </div>
+
+                <div class="col">
+                    <h4>Key stats</h4>
+                    <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+                        <div class="card small">
+                            <div>Attempts <div class="stat" id="statAttempts">—</div>
+                            </div>
+                        </div>
+                        <div class="card small">
+                            <div>Average % <div class="stat" id="statAvg">—</div>
+                            </div>
+                        </div>
+                        <div class="card small">
+                            <div>Best Subject <div class="stat" id="statBest">—</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:12px">
+                <h4>Recent Attempts</h4>
+                <div id="recentTable"></div>
+            </div>
+
+            <div style="margin-top:12px">
+                <h4>Record a new attempt</h4>
+                <div class="row">
+                    <div class="col"><label>Student name</label><input id="r_name" placeholder="e.g. John Doe"></div>
+                    <div class="col"><label>Subject</label><input id="r_subject" placeholder="e.g. Mathematics"></div>
+                    <div class="col"><label>Score</label><input id="r_score" type="number" min="0"
+                            placeholder="e.g. 45"></div>
+                    <div class="col"><label>Total</label><input id="r_total" type="number" min="1"
+                            placeholder="e.g. 60"></div>
+                </div>
+                <div style="margin-top:8px"><button id="r_add" class="btn">Add Attempt</button></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const KEY = 'baccalearn_attempts_v1';
+            function read() { try { return JSON.parse(localStorage.getItem(KEY) || '[]') } catch (e) { return [] } }
+            function write(d) { localStorage.setItem(KEY, JSON.stringify(d)) }
+            function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6) }
+
+            // UI refs
+            const studentSelect = document.getElementById('studentSelect');
+            const subjectFilter = document.getElementById('subjectFilter');
+            const refreshBtn = document.getElementById('refresh');
+            const demoBtn = document.getElementById('demo');
+            const exportBtn = document.getElementById('export');
+            const clearBtn = document.getElementById('clear');
+            const studentNameEl = document.getElementById('studentName');
+            const studentMeta = document.getElementById('studentMeta');
+            const statAttempts = document.getElementById('statAttempts');
+            const statAvg = document.getElementById('statAvg');
+            const statBest = document.getElementById('statBest');
+            const lineChart = document.getElementById('lineChart');
+            const subjectBreakdown = document.getElementById('subjectBreakdown');
+            const recentTable = document.getElementById('recentTable');
+
+            // record fields
+            const r_name = document.getElementById('r_name');
+            const r_subject = document.getElementById('r_subject');
+            const r_score = document.getElementById('r_score');
+            const r_total = document.getElementById('r_total');
+            const r_add = document.getElementById('r_add');
+
+            function populateStudents() {
+                const attempts = read();
+                const names = Array.from(new Set(attempts.map(a => a.student).filter(Boolean))).sort();
+                // preserve current
+                const cur = studentSelect.value;
+                studentSelect.innerHTML = '<option value="">— choose —</option>' + names.map(n => `<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
+                if (names.includes(cur)) studentSelect.value = cur;
+            }
+
+            function renderForStudent(name) {
+                const attemptsRaw = read().filter(a => (a.student || '').toLowerCase() === (name || '').toLowerCase());
+                const subject = subjectFilter.value.trim();
+                const attempts = subject ? attemptsRaw.filter(a => (a.subject || '').toLowerCase().includes(subject.toLowerCase())) : attemptsRaw;
+                studentNameEl.textContent = name || 'Select a student';
+                if (!attempts.length) {
+                    studentMeta.textContent = attemptsRaw.length ? `No attempts for "${subject}"` : 'No attempts on record.';
+                    statAttempts.textContent = attempts.length;
+                    statAvg.textContent = '-';
+                    statBest.textContent = '-';
+                    lineChart.innerHTML = '<div class="muted small">No data</div>';
+                    subjectBreakdown.innerHTML = '';
+                    recentTable.innerHTML = '';
+                    return;
+                }
+
+                // sort by date
+                attempts.sort((a, b) => new Date(a.date) - new Date(b.date));
+                const percents = attempts.map(a => Math.round((a.score / (a.total || 1)) * 100));
+                const avg = Math.round(percents.reduce((s, n) => s + n, 0) / percents.length);
+                statAttempts.textContent = attempts.length;
+                statAvg.textContent = avg + '%';
+
+                // subject breakdown
+                const bySub = {};
+                attempts.forEach(a => {
+                    const s = a.subject || 'General';
+                    if (!bySub[s]) bySub[s] = { count: 0, sum: 0 };
+                    bySub[s].count++; bySub[s].sum += Math.round((a.score / (a.total || 1)) * 100);
+                });
+                const subjects = Object.keys(bySub).map(s => ({ subject: s, avg: Math.round(bySub[s].sum / bySub[s].count), count: bySub[s].count })).sort((a, b) => b.avg - a.avg);
+                statBest.textContent = subjects.length ? subjects[0].subject + ' (' + subjects[0].avg + '%)' : '-';
+
+                subjectBreakdown.innerHTML = '<h4>Subject averages</h4>' + subjects.map(s => `<div class="card small">${escapeHtml(s.subject)} — ${s.avg}% (${s.count} attempts)</div>`).join('');
+
+                // sparkline
+                renderSparkline(lineChart, percents);
+
+                // recent attempts
+                recentTable.innerHTML = attemptsTable(attempts.slice().reverse());
+            }
+
+            function attemptsTable(rows) {
+                return `<div class="table-responsive"><table><thead><tr><th>Date</th><th>Subject</th><th>Score</th><th>%</th></tr></thead><tbody>${rows.map(r => `<tr><td>${escapeHtml(new Date(r.date).toLocaleString())}</td><td>${escapeHtml(r.subject)}</td><td>${r.score} / ${r.total}</td><td>${Math.round((r.score / (r.total || 1)) * 100)}%</td></tr>`).join('')}</tbody></table></div>`;
+            }
+
+            function renderSparkline(container, numbers) {
+                if (!numbers || !numbers.length) { container.innerHTML = '<div class="muted small">No data</div>'; return }
+                const w = Math.max(200, container.clientWidth || 300); const h = 120; const max = Math.max(...numbers); const min = Math.min(...numbers);
+                const pad = 8; const step = w / (numbers.length - 1 || 1);
+                const points = numbers.map((v, i) => `${Math.max(pad, Math.round(i * step))},${Math.round((h - pad) - ((v - min) / (Math.max(1, max - min))) * (h - pad * 2))}`).join(' ');
+                container.innerHTML = `<svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><polyline points="${points}" fill="none" stroke="#0b63d6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><polyline points="${points}" fill="rgba(11,99,214,0.08)" stroke="none" /></svg>`;
+            }
+
+            // demo data
+            function generateDemo() {
+                const students = ['Ama', 'Kofi', 'John', 'Abena', 'Grace'];
+                const subjects = ['Mathematics', 'English', 'Biology', 'Chemistry', 'Physics', 'Economics'];
+                const arr = [];
+                const now = Date.now();
+                for (let i = 0; i < 80; i++) {
+                    const s = students[Math.floor(Math.random() * students.length)];
+                    const sub = subjects[Math.floor(Math.random() * subjects.length)];
+                    const total = 60; const score = Math.round(Math.random() * total);
+                    arr.push({ id: uid(), student: s, subject: sub, score, total, date: new Date(now - Math.floor(Math.random() * 1000 * 60 * 60 * 24 * 180)).toISOString() });
+                }
+                write(arr);
+                populateStudents();
+                alert('Demo data created');
+            }
+
+            function exportCSV() {
+                const data = read();
+                if (!data.length) { alert('No data'); return }
+                const rows = [['id', 'student', 'subject', 'score', 'total', 'date']];
+                data.forEach(a => rows.push([a.id || '', a.student || '', a.subject || '', a.score || 0, a.total || 0, a.date || '']));
+                const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'baccalearn_attempts.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+            }
+
+            function clearAll() { if (!confirm('Clear all attempts?')) return; localStorage.removeItem(KEY); populateStudents(); studentNameEl.textContent = 'Select a student'; studentMeta.textContent = 'No data'; lineChart.innerHTML = ''; subjectBreakdown.innerHTML = ''; recentTable.innerHTML = ''; statAttempts.textContent = '-'; statAvg.textContent = '-'; statBest.textContent = '-'; }
+
+            function addAttempt() {
+                const student = (r_name.value || '').trim(); if (!student) { alert('Provide student name'); return }
+                const subject = (r_subject.value || '').trim() || 'General';
+                const score = Number(r_score.value) || 0; const total = Number(r_total.value) || 100;
+                const arr = read(); arr.push({ id: uid(), student, subject, score, total, date: new Date().toISOString() }); write(arr);
+                populateStudents(); studentSelect.value = student; renderForStudent(student);
+                r_name.value = ''; r_subject.value = ''; r_score.value = ''; r_total.value = '';
+            }
+
+            // helpers
+            function escapeHtml(s) { return String(s || '').replace(/[&<>\"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] || c)); }
+
+            // wiring
+            populateStudents();
+            studentSelect.onchange = () => { const v = studentSelect.value; if (v) renderForStudent(v); };
+            refreshBtn.onclick = () => { populateStudents(); const v = studentSelect.value; if (v) renderForStudent(v); };
+            demoBtn.onclick = () => { generateDemo(); };
+            exportBtn.onclick = () => { exportCSV(); };
+            clearBtn.onclick = () => { clearAll(); };
+            r_add.onclick = () => { addAttempt(); };
+
+        })();
+    </script>
+</body>
+
+</html>

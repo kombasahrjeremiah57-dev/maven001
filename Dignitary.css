@@ -45,6 +45,76 @@ nav ul li a {
   font-weight: bold;
 }
 
+/* Base navbar style */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #0a4d68;
+    color: white;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Desktop menu */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Hide hamburger by default */
+.menu-toggle {
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+}
+
+/* -------------------------------------- */
+/* 📌 MOBILE RESPONSIVE SECTION */
+/* -------------------------------------- */
+
+@media (max-width: 768px) {
+
+    /* Show hamburger on phone/tablet */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Hide menu initially */
+    .nav-links {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        background: #0a4d68;
+        flex-direction: column;
+        display: none; /* hidden by default */
+        padding: 15px 0;
+        border-radius: 0 0 0 10px;
+    }
+
+    .nav-links.active {
+        display: flex; /* show when toggled */
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+        text-align: center;
+    }
+}
+
+
 .hero {
   text-align: center;
   padding: 60px 20px;
@@ -76,6 +146,37 @@ nav ul li a {
   gap: 20px;
   margin-top: 20px;
 }
+
+/* Cards container */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on big screens */
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Individual card styling */
+.card {
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Tablet view: 2 cards per row */
+@media screen and (max-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Phone view: 1 card per row */
+@media screen and (max-width: 600px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
+
 
 .card {
   background: #fff;
@@ -129,7 +230,3 @@ footer {
 
 
 }
-
-
-
-
