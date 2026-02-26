@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SS1 English Textbook</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #6b4c3b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .toc {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+        }
+
+        .toc div {
+            background-color: #ddd;
+            padding: 15px;
+            cursor: pointer;
+            border-left: 5px solid #6b4c3b;
+            transition: background-color 0.3s;
+        }
+
+        .toc div:hover {
+            background-color: #ccc;
+        }
+
+        .note {
+            display: none;
+            padding: 20px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: #6b4c3b;
+        }
+
+        .example,
+        .practice,
+        .tips {
+            border-left: 4px solid #6b4c3b;
+            background-color: #eee;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .back-btn {
+            margin: 10px 0;
+            padding: 10px 15px;
+            background-color: #6b4c3b;
+            color: white;
+            cursor: pointer;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>SS1 English Textbook</h1>
+    </header>
+
+    <!-- Table of Contents -->
+    <div id="tocPage" class="toc">
+        <h2>Table of Contents</h2>
+        <div onclick="showNote('definition')">1. Definition and Importance of English Language</div>
+        <div onclick="showNote('nouns')">2. Nouns</div>
+        <div onclick="showNote('pronouns')">3. Pronouns</div>
+        <div onclick="showNote('verbs')">4. Verbs</div>
+        <div onclick="showNote('adjectives')">5. Adjectives</div>
+        <div onclick="showNote('adverbs')">6. Adverbs</div>
+        <div onclick="showNote('prepositions')">7. Prepositions</div>
+        <div onclick="showNote('conjunctions')">8. Conjunctions</div>
+        <div onclick="showNote('interjections')">9. Interjections</div>
+        <div onclick="showNote('sentenceStructure')">10. Sentence Structure</div>
+        <div onclick="showNote('tenses')">11. Tenses</div>
+        <div onclick="showNote('concord')">12. Concord (Subject-Verb Agreement)</div>
+        <div onclick="showNote('voice')">13. Active and Passive Voice</div>
+        <div onclick="showNote('speech')">14. Direct and Indirect Speech</div>
+        <div onclick="showNote('questionTags')">15. Question Tags</div>
+        <div onclick="showNote('punctuation')">16. Punctuation and Capitalization</div>
+        <div onclick="showNote('vocabulary')">17. Vocabulary Development</div>
+    </div>
+
+    <!-- 1. Definition -->
+    <div id="definition" class="note">
+        <h2>1. Definition and Importance of English Language</h2>
+        <h3>Definition</h3>
+        <p>English is a language used for communication, either spoken, written, read, or listened to. It is used to
+            express thoughts, ideas, feelings, or information.</p>
+        <h3>Importance of English</h3>
+        <ul>
+            <li>Education: English is the medium of instruction in many subjects.
+                <div class="example">Example: We learn science and mathematics in English.</div>
+            </li>
+            <li>Communication: Helps express ideas clearly.
+                <div class="example">Example: I explained my project in English to the class.</div>
+            </li>
+            <li>Career Opportunities: Knowledge of English helps in business, media, and government jobs.
+                <div class="example">Example: He got a job because of his good English.</div>
+            </li>
+            <li>Access to Knowledge: Most books, research, and online content are in English.
+                <div class="example">Example: I read articles online in English to improve my knowledge.</div>
+            </li>
+            <li>Global Interaction: English is spoken worldwide and used for international communication.
+                <div class="example">Example: Tourists from other countries speak English with locals.</div>
+            </li>
+        </ul>
+        <div class="tips">
+            <h3>Tips to Improve English</h3>
+            <ul>
+                <li>Read English books, newspapers, and articles.</li>
+                <li>Listen to English audio like songs, podcasts, or news.</li>
+                <li>Speak English with friends, teachers, and family.</li>
+                <li>Write essays, letters, and summaries.</li>
+                <li>Learn new vocabulary daily.</li>
+            </ul>
+        </div>
+        <div class="practice">
+            <h3>Practice</h3>
+            <ul>
+                <li>Write a paragraph explaining why English is important.</li>
+                <li>List 10 words you often confuse and use them correctly in sentences.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 2. Nouns -->
+    <div id="nouns" class="note">
+        <h2>2. Nouns</h2>
+        <p><strong>Definition:</strong> A noun is a word that names a person, place, thing, or idea.</p>
+        <h3>Types of Nouns</h3>
+        <ul>
+            <li>Proper Nouns: Nathaniel, Freetown, United Nations</li>
+            <li>Common Nouns: teacher, school, book</li>
+            <li>Concrete Nouns: apple, chair, flower</li>
+            <li>Abstract Nouns: freedom, happiness, courage</li>
+            <li>Collective Nouns: team, flock, class</li>
+        </ul>
+        <div class="example">
+            Examples in Sentences:
+            <ul>
+                <li>Proper noun: Nathaniel is my best friend.</li>
+                <li>Common noun: The teacher explained the lesson.</li>
+                <li>Concrete noun: I ate an apple.</li>
+                <li>Abstract noun: Freedom is precious.</li>
+                <li>Collective noun: The team won the match.</li>
+            </ul>
+        </div>
+        <div class="practice">
+            <ul>
+                <li>Identify nouns in: “The children played football in the garden with their teacher.”</li>
+                <li>Write 5 sentences using different types of nouns.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 3. Pronouns -->
+    <div id="pronouns" class="note">
+        <h2>3. Pronouns</h2>
+        <p>A pronoun replaces a noun to avoid repetition.</p>
+        <ul>
+            <li>Personal: I, you, he, she, it, we, they</li>
+            <li>Possessive: mine, yours, his, hers, ours, theirs</li>
+            <li>Reflexive: myself, yourself, himself, herself, itself, ourselves, yourselves, themselves</li>
+            <li>Demonstrative: this, that, these, those</li>
+            <li>Interrogative: who, whom, whose, which, what</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Replace nouns with pronouns in sentences.</li>
+                <li>Write 5 sentences using 3 different types of pronouns.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 4. Verbs -->
+    <div id="verbs" class="note">
+        <h2>4. Verbs</h2>
+        <p>Verbs express actions, occurrence, or states of being.</p>
+        <ul>
+            <li>Action: run, write, play, read</li>
+            <li>Stative: am, is, has, seems, belongs</li>
+            <li>Auxiliary: is, are, was, were, have, has, had</li>
+            <li>Modal: can, could, may, might, must, shall, should, will, would</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Identify verbs in sample sentences.</li>
+                <li>Write 5 sentences using different types of verbs.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 5. Adjectives -->
+    <div id="adjectives" class="note">
+        <h2>5. Adjectives</h2>
+        <p>An adjective describes or modifies a noun or pronoun.</p>
+        <ul>
+            <li>Descriptive: beautiful, tall, red</li>
+            <li>Quantitative: some, many, few</li>
+            <li>Demonstrative: this, that, these, those</li>
+            <li>Possessive: my, your, his, her</li>
+        </ul>
+        <div class="example">
+            <ul>
+                <li>The <strong>tall</strong> man walked quickly.</li>
+                <li>She has <strong>many</strong> books.</li>
+            </ul>
+        </div>
+        <div class="practice">
+            <ul>
+                <li>Underline adjectives in sentences.</li>
+                <li>Create 5 sentences with at least 2 adjectives each.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 6. Adverbs -->
+    <div id="adverbs" class="note">
+        <h2>6. Adverbs</h2>
+        <p>An adverb modifies a verb, adjective, or another adverb.</p>
+        <ul>
+            <li>Time: yesterday, today, soon</li>
+            <li>Place: here, there, everywhere</li>
+            <li>Manner: quickly, slowly, badly</li>
+            <li>Degree: very, too, almost</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Identify adverbs in sentences.</li>
+                <li>Write 5 sentences using different types of adverbs.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 7. Prepositions -->
+    <div id="prepositions" class="note">
+        <h2>7. Prepositions</h2>
+        <p>Prepositions show relationships between nouns (or pronouns) and other words in a sentence.</p>
+        <ul>
+            <li>Time: at, on, in – I wake up <strong>at</strong> 6am.</li>
+            <li>Place: under, above, between – The book is <strong>on</strong> the table.</li>
+            <li>Direction: to, into, towards – He walked <strong>to</strong> school.</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Underline prepositions in sentences.</li>
+                <li>Write 5 sentences using prepositions of time, place, and direction.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 8. Conjunctions -->
+    <div id="conjunctions" class="note">
+        <h2>8. Conjunctions</h2>
+        <p>Conjunctions connect words, phrases, or clauses.</p>
+        <ul>
+            <li>Coordinating: and, but, or, nor, for, so, yet</li>
+            <li>Subordinating: because, although, since, while</li>
+            <li>Correlative: either…or, neither…nor, both…and</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Identify conjunctions in sentences.</li>
+                <li>Write 5 sentences using different types of conjunctions.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 9. Interjections -->
+    <div id="interjections" class="note">
+        <h2>9. Interjections</h2>
+        <p>Interjections are words or phrases that express strong emotion or sudden feeling.</p>
+        <ul>
+            <li>Examples: Wow!, Oh!, Alas!, Hurray!</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Identify interjections in sentences.</li>
+                <li>Write 5 sentences expressing emotions using interjections.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 10. Sentence Structure -->
+    <div id="sentenceStructure" class="note">
+        <h2>10. Sentence Structure</h2>
+        <p>Sentences are made up of words that express a complete thought.</p>
+        <ul>
+            <li>Simple Sentence: contains one subject and one predicate – She reads.</li>
+            <li>Compound Sentence: two independent clauses joined by a conjunction – She reads and he writes.</li>
+            <li>Complex Sentence: independent + dependent clause – I went home because it was raining.</li>
+            <li>Compound-Complex: at least two independent clauses + one dependent – I went home because it was raining,
+                and I cooked dinner.</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Identify sentence types.</li>
+                <li>Write 5 examples for each type.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 11. Tenses -->
+    <div id="tenses" class="note">
+        <h2>11. Tenses</h2>
+        <p>Tenses show the time of an action or state.</p>
+        <ul>
+            <li>Present: I eat, She reads</li>
+            <li>Past: I ate, She read</li>
+            <li>Future: I will eat, She will read</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Identify tense in sentences.</li>
+                <li>Write 5 sentences in each tense.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 12. Concord -->
+    <div id="concord" class="note">
+        <h2>12. Concord (Subject-Verb Agreement)</h2>
+        <p>Concord means the subject and verb must agree in number.</p>
+        <ul>
+            <li>Singular subject → singular verb: She <strong>reads</strong> daily.</li>
+            <li>Plural subject → plural verb: They <strong>read</strong> daily.</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Identify correct subject-verb agreement.</li>
+                <li>Write 5 sentences demonstrating concord.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 13. Active & Passive Voice -->
+    <div id="voice" class="note">
+        <h2>13. Active and Passive Voice</h2>
+        <ul>
+            <li>Active: Subject performs action – The boy kicked the ball.</li>
+            <li>Passive: Action done to subject – The ball was kicked by the boy.</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Convert sentences from active to passive and vice versa.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 14. Direct & Indirect Speech -->
+    <div id="speech" class="note">
+        <h2>14. Direct and Indirect Speech</h2>
+        <p>Direct: exact words – He said, “I am happy.”</p>
+        <p>Indirect: reporting – He said that he was happy.</p>
+        <div class="practice">
+            <ul>
+                <li>Convert 5 sentences from direct to indirect speech and vice versa.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 15. Question Tags -->
+    <div id="questionTags" class="note">
+        <h2>15. Question Tags</h2>
+        <p>Short questions added at the end of a statement.</p>
+        <ul>
+            <li>Positive statement → negative tag: She is coming, <strong>isn’t she?</strong></li>
+            <li>Negative statement → positive tag: They aren’t late, <strong>are they?</strong></li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Create 5 sentences with question tags.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 16. Punctuation -->
+    <div id="punctuation" class="note">
+        <h2>16. Punctuation and Capitalization</h2>
+        <p>Punctuation marks show pauses, stops, and emphasis.</p>
+        <ul>
+            <li>Full stop (.) – end of sentence</li>
+            <li>Comma (,) – pause in sentence</li>
+            <li>Question mark (?) – question</li>
+            <li>Exclamation (!) – strong feeling</li>
+            <li>Capital letters – names, beginnings of sentences</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>Add correct punctuation and capitalization to 5 sentences.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <!-- 17. Vocabulary -->
+    <div id="vocabulary" class="note">
+        <h2>17. Vocabulary Development</h2>
+        <p>Vocabulary refers to all the words a person knows or uses.</p>
+        <ul>
+            <li>Synonyms: words with same meaning – big / large</li>
+            <li>Antonyms: opposite meaning – hot / cold</li>
+            <li>Homonyms: same spelling, different meaning – bank (river / money)</li>
+            <li>Prefixes & Suffixes: un-, re-, -able, -ment</li>
+            <li>Idioms & Phrases: expressions – “Break the ice”</li>
+        </ul>
+        <div class="practice">
+            <ul>
+                <li>List 10 synonyms and antonyms.</li>
+                <li>Create sentences using idioms.</li>
+                <liIdentify words with prefixes and suffixes in sentences.</li>
+            </ul>
+        </div>
+        <div class="back-btn" onclick="backToTOC()">Back to Topics</div>
+    </div>
+
+    <script>
+        function showNote(id) {
+            document.getElementById('tocPage').style.display = 'none';
+            const notes = document.querySelectorAll('.note');
+            notes.forEach(note => note.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+        function backToTOC() {
+            document.getElementById('tocPage').style.display = 'flex';
+            const notes = document.querySelectorAll('.note');
+            notes.forEach(note => note.style.display = 'none');
+        }
+    </script>
+
+
+
+</body>
+
+</html>
