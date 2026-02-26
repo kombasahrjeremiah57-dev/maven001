@@ -1,351 +1,906 @@
-<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>BaccaLearn — Individual Performance</title>
-    <link rel="stylesheet" href="responsive.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaccaLearn Dashboard</title>
     <style>
         :root {
-            --brand: #0b63d6;
-            --muted: #6b7280
+            --orange: #ff6720;
+            --orange-dark: #eb5b18;
+            --bg: #dedee4;
+            --surface: #ffffff;
+            --line: #e5e7eb;
+            --text: #1f2937;
+            --muted: #4b5563;
+            --blue: #2563eb;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: Segoe UI, Roboto, Arial, sans-serif;
-            margin: 0;
-            background: #f6f8fb;
-            color: #0b1220
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
         }
 
-        .wrap {
-            max-width: 1100px;
-            margin: 18px auto;
-            padding: 12px
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        header {
-            display: flex;
-            align-items: center;
-            gap: 12px
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 1.2rem
+        .container {
+            width: min(1160px, 92%);
+            margin: 0 auto;
         }
 
         .topbar {
+            background: var(--orange);
+            color: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .topbar-inner {
+            min-height: 72px;
             display: flex;
-            gap: 10px;
             align-items: center;
-            margin-top: 12px
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .nav {
+            display: flex;
+            gap: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.98rem;
+        }
+
+        .hero {
+            background: #e9d5bc;
+            padding: 2.2rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .hero h1 {
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+            margin-bottom: 0.4rem;
+        }
+
+        .hero p {
+            color: #3f3f46;
+            max-width: 70ch;
+        }
+
+        .layout {
+            padding: 1.4rem 0 2rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            padding: 1rem;
+        }
+
+        .panel h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.7rem;
+            align-items: end;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        label {
+            font-size: 0.88rem;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        select,
+        input,
+        button {
+            font: inherit;
         }
 
         select,
         input {
-            padding: 8px;
-            border-radius: 8px;
-            border: 1px solid #e6e9ee
-        }
-
-        .card {
-            background: #fff;
-            padding: 14px;
+            width: 100%;
+            border: 1px solid #d1d5db;
             border-radius: 10px;
-            box-shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
-            margin-top: 12px
+            padding: 0.56rem 0.64rem;
+            background: #ffffff;
         }
 
-        .row {
+        .button-row {
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap
+            gap: 0.5rem;
+            flex-wrap: wrap;
         }
 
-        .col {
-            flex: 1;
-            min-width: 220px
+        .btn {
+            border: 0;
+            border-radius: 10px;
+            padding: 0.55rem 0.75rem;
+            cursor: pointer;
+            color: #ffffff;
+            background: var(--orange);
+            font-weight: 700;
         }
 
-        .col.big {
-            flex: 2
+        .btn:hover {
+            background: var(--orange-dark);
         }
 
-        .muted {
-            color: var(--muted)
+        .btn.alt {
+            background: var(--blue);
+        }
+
+        .btn.alt:hover {
+            filter: brightness(0.95);
+        }
+
+        .btn.danger {
+            background: #dc2626;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+
+        .stat-card {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 12px;
+            padding: 0.8rem;
+        }
+
+        .stat-card span {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 0.35rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .stat-card strong {
+            font-size: 1.3rem;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 0.8rem;
+        }
+
+        .chart-box {
+            height: 170px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #fafafa;
+            padding: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+        }
+
+        .bars {
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .bar-item {
+            display: grid;
+            gap: 0.25rem;
+        }
+
+        .bar-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+
+        .bar-track {
+            height: 10px;
+            background: #f3f4f6;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: var(--orange);
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+
+        .action {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 0.8rem;
+            box-shadow: var(--shadow);
+        }
+
+        .action h3 {
+            margin-bottom: 0.35rem;
+            font-size: 1rem;
+        }
+
+        .action p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .action a {
+            color: #9a3412;
+            font-weight: 700;
+            font-size: 0.9rem;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px
+            margin-top: 0.3rem;
+            background: #ffffff;
         }
 
         th,
         td {
-            padding: 8px;
-            border-bottom: 1px solid #eef2f7;
-            text-align: left
+            border-bottom: 1px solid #edf2f7;
+            padding: 0.65rem;
+            text-align: left;
+            font-size: 0.93rem;
         }
 
-        .chart {
-            height: 140px;
-            padding: 10px;
-            border-radius: 8px;
-            background: linear-gradient(180deg, #fff, #f8fafc)
+        th {
+            background: #fff7ed;
+            font-weight: 700;
         }
 
-        .stat {
-            font-size: 1.4rem;
-            font-weight: 700
+        .muted {
+            color: var(--muted);
+            font-size: 0.9rem;
         }
 
-        .btn {
-            padding: 8px 12px;
-            border-radius: 8px;
-            background: var(--brand);
-            color: #fff;
-            border: 0;
-            cursor: pointer
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.7rem;
+            align-items: end;
         }
 
-        .small {
-            font-size: 0.9rem
+        .footer {
+            text-align: center;
+            padding: 1.1rem 0 1.8rem;
+            color: #4b5563;
+            font-size: 0.9rem;
         }
 
-        @media(min-width:900px) {
+        @media (max-width: 1040px) {
             .controls {
-                align-items: center
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .split {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .topbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.65rem 0;
+            }
+
+            .brand {
+                font-size: 1.45rem;
+            }
+
+            .nav {
+                gap: 0.6rem;
+            }
+
+            .controls,
+            .form-grid,
+            .stats,
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                border-radius: 10px;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="wrap">
-        <header>
-            <h1>Individual Performance Dashboard</h1>
-            <div class="muted small">Tracks growth per student — data stored locally</div>
-        </header>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <a href="index.html" class="brand">BaccaLearn Dashboard</a>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="resources.html">Resources</a>
+                <a href="notes.html">Notes</a>
+                <a href="prequiz.html">Quiz</a>
+                <a href="dropdown.html">Subjects</a>
+            </nav>
+        </div>
+    </header>
 
-        <div class="topbar card">
-            <div class="row" style="width:100%">
-                <div class="col">
-                    <label for="studentSelect">Select Student</label>
+    <section class="hero">
+        <div class="container">
+            <h1>Student Performance Dashboard</h1>
+            <p>Track attempts, monitor average scores, and focus revision on weak subjects. Data is saved locally in your browser.</p>
+        </div>
+    </section>
+
+    <main class="container layout">
+        <section class="panel">
+            <h2>Controls</h2>
+            <div class="controls">
+                <div class="field">
+                    <label for="studentSelect">Select student</label>
                     <select id="studentSelect">
-                        <option value="">— choose or type —</option>
+                        <option value="">Choose a student</option>
                     </select>
                 </div>
-                <div class="col">
-                    <label for="subjectFilter">Subject filter (optional)</label>
+
+                <div class="field">
+                    <label for="subjectFilter">Filter by subject</label>
                     <input id="subjectFilter" placeholder="e.g. Mathematics">
                 </div>
-                <div class="col" style="display:flex;align-items:end;gap:8px">
-                    <button id="refresh" class="btn">Refresh</button>
-                    <button id="demo" class="btn">Demo Data</button>
-                    <button id="export" class="btn">Export CSV</button>
-                    <button id="clear" class="btn" style="background:#ef4444">Clear Data</button>
-                </div>
-            </div>
-        </div>
 
-        <div id="profile" class="card">
-            <div class="row">
-                <div class="col big">
-                    <h3 id="studentName">Select a student</h3>
-                    <div class="muted small" id="studentMeta">No data</div>
-
-                    <div style="margin-top:12px" id="progressArea">
-                        <div class="chart" id="lineChart">Sparkline will appear here</div>
-                    </div>
-
-                    <div style="margin-top:12px" id="subjectBreakdown"></div>
+                <div class="field">
+                    <label for="dateFrom">From date</label>
+                    <input id="dateFrom" type="date">
                 </div>
 
-                <div class="col">
-                    <h4>Key stats</h4>
-                    <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
-                        <div class="card small">
-                            <div>Attempts <div class="stat" id="statAttempts">—</div>
-                            </div>
-                        </div>
-                        <div class="card small">
-                            <div>Average % <div class="stat" id="statAvg">—</div>
-                            </div>
-                        </div>
-                        <div class="card small">
-                            <div>Best Subject <div class="stat" id="statBest">—</div>
-                            </div>
-                        </div>
+                <div class="field">
+                    <label for="dateTo">To date</label>
+                    <input id="dateTo" type="date">
+                </div>
+
+                <div class="field">
+                    <label>Actions</label>
+                    <div class="button-row">
+                        <button id="refresh" class="btn">Refresh</button>
+                        <button id="demo" class="btn alt">Demo</button>
+                        <button id="export" class="btn alt">Export CSV</button>
+                        <button id="clear" class="btn danger">Clear</button>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div style="margin-top:12px">
-                <h4>Recent Attempts</h4>
-                <div id="recentTable"></div>
+        <section class="panel">
+            <h2 id="studentName">No student selected</h2>
+            <p class="muted" id="studentMeta">Pick a student to view progress.</p>
+
+            <div class="stats" style="margin-top:0.75rem">
+                <article class="stat-card">
+                    <span>Attempts</span>
+                    <strong id="statAttempts">-</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Average</span>
+                    <strong id="statAvg">-</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Best Subject</span>
+                    <strong id="statBest">-</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Last Activity</span>
+                    <strong id="statLast">-</strong>
+                </article>
+            </div>
+        </section>
+
+        <section class="split">
+            <div class="panel">
+                <h2>Progress Trend</h2>
+                <div id="lineChart" class="chart-box">No chart data yet.</div>
             </div>
 
-            <div style="margin-top:12px">
-                <h4>Record a new attempt</h4>
-                <div class="row">
-                    <div class="col"><label>Student name</label><input id="r_name" placeholder="e.g. John Doe"></div>
-                    <div class="col"><label>Subject</label><input id="r_subject" placeholder="e.g. Mathematics"></div>
-                    <div class="col"><label>Score</label><input id="r_score" type="number" min="0"
-                            placeholder="e.g. 45"></div>
-                    <div class="col"><label>Total</label><input id="r_total" type="number" min="1"
-                            placeholder="e.g. 60"></div>
+            <div class="panel">
+                <h2>Subject Performance</h2>
+                <div id="subjectBars" class="bars">
+                    <p class="muted">No subject data yet.</p>
                 </div>
-                <div style="margin-top:8px"><button id="r_add" class="btn">Add Attempt</button></div>
             </div>
-        </div>
-    </div>
+        </section>
+
+        <section class="panel">
+            <h2>Quick Actions</h2>
+            <div class="quick-actions">
+                <article class="action">
+                    <h3>Open Notes</h3>
+                    <p>Review topic notes before the next test.</p>
+                    <a href="notes.html">Go to notes</a>
+                </article>
+                <article class="action">
+                    <h3>Take Quiz</h3>
+                    <p>Check your understanding with quick questions.</p>
+                    <a href="prequiz.html">Start quiz</a>
+                </article>
+                <article class="action">
+                    <h3>Past Questions</h3>
+                    <p>Practice with previous exam patterns.</p>
+                    <a href="Past questions.html">Open past papers</a>
+                </article>
+                <article class="action">
+                    <h3>Subject List</h3>
+                    <p>Jump to the subject you want to revise.</p>
+                    <a href="dropdown.html">Open subjects</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Recent Attempts</h2>
+            <div id="recentTable" class="muted">No attempts yet.</div>
+        </section>
+
+        <section class="panel">
+            <h2>Record New Attempt</h2>
+            <div class="form-grid">
+                <div class="field">
+                    <label for="r_name">Student name</label>
+                    <input id="r_name" placeholder="e.g. John Doe">
+                </div>
+                <div class="field">
+                    <label for="r_subject">Subject</label>
+                    <input id="r_subject" placeholder="e.g. Mathematics">
+                </div>
+                <div class="field">
+                    <label for="r_score">Score</label>
+                    <input id="r_score" type="number" min="0" placeholder="e.g. 42">
+                </div>
+                <div class="field">
+                    <label for="r_total">Total</label>
+                    <input id="r_total" type="number" min="1" placeholder="e.g. 60">
+                </div>
+                <div class="field">
+                    <label>Add</label>
+                    <button id="r_add" class="btn">Add Attempt</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <p class="footer">BaccaLearn Dashboard | Local data storage</p>
 
     <script>
         (function () {
-            const KEY = 'baccalearn_attempts_v1';
-            function read() { try { return JSON.parse(localStorage.getItem(KEY) || '[]') } catch (e) { return [] } }
-            function write(d) { localStorage.setItem(KEY, JSON.stringify(d)) }
-            function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6) }
+            var KEY = 'baccalearn_attempts_v1';
 
-            // UI refs
-            const studentSelect = document.getElementById('studentSelect');
-            const subjectFilter = document.getElementById('subjectFilter');
-            const refreshBtn = document.getElementById('refresh');
-            const demoBtn = document.getElementById('demo');
-            const exportBtn = document.getElementById('export');
-            const clearBtn = document.getElementById('clear');
-            const studentNameEl = document.getElementById('studentName');
-            const studentMeta = document.getElementById('studentMeta');
-            const statAttempts = document.getElementById('statAttempts');
-            const statAvg = document.getElementById('statAvg');
-            const statBest = document.getElementById('statBest');
-            const lineChart = document.getElementById('lineChart');
-            const subjectBreakdown = document.getElementById('subjectBreakdown');
-            const recentTable = document.getElementById('recentTable');
-
-            // record fields
-            const r_name = document.getElementById('r_name');
-            const r_subject = document.getElementById('r_subject');
-            const r_score = document.getElementById('r_score');
-            const r_total = document.getElementById('r_total');
-            const r_add = document.getElementById('r_add');
-
-            function populateStudents() {
-                const attempts = read();
-                const names = Array.from(new Set(attempts.map(a => a.student).filter(Boolean))).sort();
-                // preserve current
-                const cur = studentSelect.value;
-                studentSelect.innerHTML = '<option value="">— choose —</option>' + names.map(n => `<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
-                if (names.includes(cur)) studentSelect.value = cur;
+            function readData() {
+                try {
+                    return JSON.parse(localStorage.getItem(KEY) || '[]');
+                } catch (e) {
+                    return [];
+                }
             }
 
-            function renderForStudent(name) {
-                const attemptsRaw = read().filter(a => (a.student || '').toLowerCase() === (name || '').toLowerCase());
-                const subject = subjectFilter.value.trim();
-                const attempts = subject ? attemptsRaw.filter(a => (a.subject || '').toLowerCase().includes(subject.toLowerCase())) : attemptsRaw;
-                studentNameEl.textContent = name || 'Select a student';
-                if (!attempts.length) {
-                    studentMeta.textContent = attemptsRaw.length ? `No attempts for "${subject}"` : 'No attempts on record.';
-                    statAttempts.textContent = attempts.length;
-                    statAvg.textContent = '-';
-                    statBest.textContent = '-';
-                    lineChart.innerHTML = '<div class="muted small">No data</div>';
-                    subjectBreakdown.innerHTML = '';
-                    recentTable.innerHTML = '';
+            function writeData(data) {
+                localStorage.setItem(KEY, JSON.stringify(data));
+            }
+
+            function uid() {
+                return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+            }
+
+            function escapeHtml(value) {
+                return String(value || '').replace(/[&<>"']/g, function (char) {
+                    return {
+                        '&': '&amp;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                        '"': '&quot;',
+                        "'": '&#39;'
+                    }[char] || char;
+                });
+            }
+
+            var studentSelect = document.getElementById('studentSelect');
+            var subjectFilter = document.getElementById('subjectFilter');
+            var dateFrom = document.getElementById('dateFrom');
+            var dateTo = document.getElementById('dateTo');
+            var refreshBtn = document.getElementById('refresh');
+            var demoBtn = document.getElementById('demo');
+            var exportBtn = document.getElementById('export');
+            var clearBtn = document.getElementById('clear');
+
+            var studentNameEl = document.getElementById('studentName');
+            var studentMeta = document.getElementById('studentMeta');
+            var statAttempts = document.getElementById('statAttempts');
+            var statAvg = document.getElementById('statAvg');
+            var statBest = document.getElementById('statBest');
+            var statLast = document.getElementById('statLast');
+            var lineChart = document.getElementById('lineChart');
+            var subjectBars = document.getElementById('subjectBars');
+            var recentTable = document.getElementById('recentTable');
+
+            var rName = document.getElementById('r_name');
+            var rSubject = document.getElementById('r_subject');
+            var rScore = document.getElementById('r_score');
+            var rTotal = document.getElementById('r_total');
+            var rAdd = document.getElementById('r_add');
+
+            function populateStudents() {
+                var all = readData();
+                var names = Array.from(new Set(all.map(function (a) { return (a.student || '').trim(); }).filter(Boolean))).sort();
+                var current = studentSelect.value;
+
+                studentSelect.innerHTML = '<option value="">Choose a student</option>' + names.map(function (name) {
+                    var safe = escapeHtml(name);
+                    return '<option value="' + safe + '">' + safe + '</option>';
+                }).join('');
+
+                if (names.indexOf(current) !== -1) {
+                    studentSelect.value = current;
+                }
+            }
+
+            function filterAttempts(student) {
+                var list = readData();
+
+                if (student) {
+                    list = list.filter(function (a) {
+                        return (a.student || '').toLowerCase() === student.toLowerCase();
+                    });
+                }
+
+                var subject = subjectFilter.value.trim().toLowerCase();
+                if (subject) {
+                    list = list.filter(function (a) {
+                        return (a.subject || '').toLowerCase().indexOf(subject) !== -1;
+                    });
+                }
+
+                if (dateFrom.value) {
+                    var fromTime = new Date(dateFrom.value + 'T00:00:00').getTime();
+                    list = list.filter(function (a) { return new Date(a.date).getTime() >= fromTime; });
+                }
+
+                if (dateTo.value) {
+                    var toTime = new Date(dateTo.value + 'T23:59:59').getTime();
+                    list = list.filter(function (a) { return new Date(a.date).getTime() <= toTime; });
+                }
+
+                return list.sort(function (a, b) { return new Date(a.date) - new Date(b.date); });
+            }
+
+            function renderSparkline(numbers) {
+                if (!numbers.length) {
+                    lineChart.innerHTML = 'No chart data yet.';
                     return;
                 }
 
-                // sort by date
-                attempts.sort((a, b) => new Date(a.date) - new Date(b.date));
-                const percents = attempts.map(a => Math.round((a.score / (a.total || 1)) * 100));
-                const avg = Math.round(percents.reduce((s, n) => s + n, 0) / percents.length);
-                statAttempts.textContent = attempts.length;
-                statAvg.textContent = avg + '%';
+                var width = Math.max(300, lineChart.clientWidth - 20);
+                var height = 140;
+                var min = Math.min.apply(Math, numbers);
+                var max = Math.max.apply(Math, numbers);
+                var range = Math.max(1, max - min);
+                var step = width / Math.max(1, numbers.length - 1);
 
-                // subject breakdown
-                const bySub = {};
-                attempts.forEach(a => {
-                    const s = a.subject || 'General';
-                    if (!bySub[s]) bySub[s] = { count: 0, sum: 0 };
-                    bySub[s].count++; bySub[s].sum += Math.round((a.score / (a.total || 1)) * 100);
-                });
-                const subjects = Object.keys(bySub).map(s => ({ subject: s, avg: Math.round(bySub[s].sum / bySub[s].count), count: bySub[s].count })).sort((a, b) => b.avg - a.avg);
-                statBest.textContent = subjects.length ? subjects[0].subject + ' (' + subjects[0].avg + '%)' : '-';
+                var points = numbers.map(function (n, i) {
+                    var x = Math.round(i * step);
+                    var y = Math.round((height - 12) - ((n - min) / range) * (height - 24));
+                    return x + ',' + y;
+                }).join(' ');
 
-                subjectBreakdown.innerHTML = '<h4>Subject averages</h4>' + subjects.map(s => `<div class="card small">${escapeHtml(s.subject)} — ${s.avg}% (${s.count} attempts)</div>`).join('');
-
-                // sparkline
-                renderSparkline(lineChart, percents);
-
-                // recent attempts
-                recentTable.innerHTML = attemptsTable(attempts.slice().reverse());
+                lineChart.innerHTML = '<svg width="100%" height="140" viewBox="0 0 ' + width + ' ' + height + '" preserveAspectRatio="none">'
+                    + '<polyline points="' + points + '" fill="none" stroke="#ff6720" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>'
+                    + '</svg>';
             }
 
-            function attemptsTable(rows) {
-                return `<div class="table-responsive"><table><thead><tr><th>Date</th><th>Subject</th><th>Score</th><th>%</th></tr></thead><tbody>${rows.map(r => `<tr><td>${escapeHtml(new Date(r.date).toLocaleString())}</td><td>${escapeHtml(r.subject)}</td><td>${r.score} / ${r.total}</td><td>${Math.round((r.score / (r.total || 1)) * 100)}%</td></tr>`).join('')}</tbody></table></div>`;
-            }
-
-            function renderSparkline(container, numbers) {
-                if (!numbers || !numbers.length) { container.innerHTML = '<div class="muted small">No data</div>'; return }
-                const w = Math.max(200, container.clientWidth || 300); const h = 120; const max = Math.max(...numbers); const min = Math.min(...numbers);
-                const pad = 8; const step = w / (numbers.length - 1 || 1);
-                const points = numbers.map((v, i) => `${Math.max(pad, Math.round(i * step))},${Math.round((h - pad) - ((v - min) / (Math.max(1, max - min))) * (h - pad * 2))}`).join(' ');
-                container.innerHTML = `<svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><polyline points="${points}" fill="none" stroke="#0b63d6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><polyline points="${points}" fill="rgba(11,99,214,0.08)" stroke="none" /></svg>`;
-            }
-
-            // demo data
-            function generateDemo() {
-                const students = ['Ama', 'Kofi', 'John', 'Abena', 'Grace'];
-                const subjects = ['Mathematics', 'English', 'Biology', 'Chemistry', 'Physics', 'Economics'];
-                const arr = [];
-                const now = Date.now();
-                for (let i = 0; i < 80; i++) {
-                    const s = students[Math.floor(Math.random() * students.length)];
-                    const sub = subjects[Math.floor(Math.random() * subjects.length)];
-                    const total = 60; const score = Math.round(Math.random() * total);
-                    arr.push({ id: uid(), student: s, subject: sub, score, total, date: new Date(now - Math.floor(Math.random() * 1000 * 60 * 60 * 24 * 180)).toISOString() });
+            function renderSubjectBars(list) {
+                if (!list.length) {
+                    subjectBars.innerHTML = '<p class="muted">No subject data yet.</p>';
+                    return;
                 }
-                write(arr);
+
+                var bySubject = {};
+                list.forEach(function (a) {
+                    var subject = a.subject || 'General';
+                    var pct = Math.round((Number(a.score) / Math.max(1, Number(a.total))) * 100);
+                    if (!bySubject[subject]) {
+                        bySubject[subject] = { total: 0, count: 0 };
+                    }
+                    bySubject[subject].total += pct;
+                    bySubject[subject].count += 1;
+                });
+
+                var rows = Object.keys(bySubject).map(function (subject) {
+                    return {
+                        subject: subject,
+                        avg: Math.round(bySubject[subject].total / bySubject[subject].count)
+                    };
+                }).sort(function (a, b) { return b.avg - a.avg; });
+
+                subjectBars.innerHTML = rows.map(function (row) {
+                    return '<div class="bar-item">'
+                        + '<div class="bar-meta"><span>' + escapeHtml(row.subject) + '</span><strong>' + row.avg + '%</strong></div>'
+                        + '<div class="bar-track"><div class="bar-fill" style="width:' + row.avg + '%"></div></div>'
+                        + '</div>';
+                }).join('');
+            }
+
+            function renderTable(list) {
+                if (!list.length) {
+                    recentTable.innerHTML = '<p class="muted">No attempts yet.</p>';
+                    return;
+                }
+
+                var recent = list.slice().reverse().slice(0, 12);
+                recentTable.innerHTML = '<table><thead><tr><th>Date</th><th>Student</th><th>Subject</th><th>Score</th><th>Percent</th></tr></thead><tbody>'
+                    + recent.map(function (a) {
+                        var pct = Math.round((Number(a.score) / Math.max(1, Number(a.total))) * 100);
+                        return '<tr>'
+                            + '<td>' + escapeHtml(new Date(a.date).toLocaleString()) + '</td>'
+                            + '<td>' + escapeHtml(a.student) + '</td>'
+                            + '<td>' + escapeHtml(a.subject) + '</td>'
+                            + '<td>' + escapeHtml(a.score) + ' / ' + escapeHtml(a.total) + '</td>'
+                            + '<td>' + pct + '%</td>'
+                            + '</tr>';
+                    }).join('') + '</tbody></table>';
+            }
+
+            function updateStats(list, student) {
+                if (!student) {
+                    studentNameEl.textContent = 'No student selected';
+                    studentMeta.textContent = 'Pick a student to view progress.';
+                    statAttempts.textContent = '-';
+                    statAvg.textContent = '-';
+                    statBest.textContent = '-';
+                    statLast.textContent = '-';
+                    renderSparkline([]);
+                    renderSubjectBars([]);
+                    renderTable([]);
+                    return;
+                }
+
+                studentNameEl.textContent = student;
+
+                if (!list.length) {
+                    studentMeta.textContent = 'No matching attempts for the selected filters.';
+                    statAttempts.textContent = '0';
+                    statAvg.textContent = '-';
+                    statBest.textContent = '-';
+                    statLast.textContent = '-';
+                    renderSparkline([]);
+                    renderSubjectBars([]);
+                    renderTable([]);
+                    return;
+                }
+
+                var percents = list.map(function (a) {
+                    return Math.round((Number(a.score) / Math.max(1, Number(a.total))) * 100);
+                });
+
+                var average = Math.round(percents.reduce(function (sum, n) { return sum + n; }, 0) / percents.length);
+                var lastDate = new Date(list[list.length - 1].date);
+
+                var bySubject = {};
+                list.forEach(function (a) {
+                    var subject = a.subject || 'General';
+                    var pct = Math.round((Number(a.score) / Math.max(1, Number(a.total))) * 100);
+                    if (!bySubject[subject]) {
+                        bySubject[subject] = { total: 0, count: 0 };
+                    }
+                    bySubject[subject].total += pct;
+                    bySubject[subject].count += 1;
+                });
+
+                var best = Object.keys(bySubject).map(function (subject) {
+                    return {
+                        subject: subject,
+                        avg: Math.round(bySubject[subject].total / bySubject[subject].count)
+                    };
+                }).sort(function (a, b) { return b.avg - a.avg; })[0];
+
+                studentMeta.textContent = 'Showing ' + list.length + ' filtered attempts.';
+                statAttempts.textContent = String(list.length);
+                statAvg.textContent = average + '%';
+                statBest.textContent = best ? (best.subject + ' (' + best.avg + '%)') : '-';
+                statLast.textContent = lastDate.toLocaleDateString();
+
+                renderSparkline(percents);
+                renderSubjectBars(list);
+                renderTable(list);
+            }
+
+            function refreshView() {
+                var student = studentSelect.value;
+                var filtered = filterAttempts(student);
+                updateStats(filtered, student);
+            }
+
+            function addAttempt() {
+                var student = rName.value.trim();
+                if (!student) {
+                    alert('Enter student name.');
+                    return;
+                }
+
+                var subject = rSubject.value.trim() || 'General';
+                var score = Number(rScore.value);
+                var total = Number(rTotal.value);
+
+                if (!Number.isFinite(score) || !Number.isFinite(total) || total <= 0 || score < 0) {
+                    alert('Enter valid score and total values.');
+                    return;
+                }
+
+                var data = readData();
+                data.push({
+                    id: uid(),
+                    student: student,
+                    subject: subject,
+                    score: score,
+                    total: total,
+                    date: new Date().toISOString()
+                });
+                writeData(data);
+
                 populateStudents();
-                alert('Demo data created');
+                studentSelect.value = student;
+                refreshView();
+
+                rName.value = '';
+                rSubject.value = '';
+                rScore.value = '';
+                rTotal.value = '';
+            }
+
+            function createDemoData() {
+                var students = ['Abena', 'John', 'Mariama', 'Kofi', 'Grace'];
+                var subjects = ['Mathematics', 'English', 'Biology', 'Chemistry', 'Physics', 'Economics'];
+                var now = Date.now();
+                var data = [];
+
+                for (var i = 0; i < 120; i += 1) {
+                    var student = students[Math.floor(Math.random() * students.length)];
+                    var subject = subjects[Math.floor(Math.random() * subjects.length)];
+                    var total = 60;
+                    var score = Math.floor(Math.random() * 61);
+                    var past = now - Math.floor(Math.random() * 1000 * 60 * 60 * 24 * 160);
+                    data.push({
+                        id: uid(),
+                        student: student,
+                        subject: subject,
+                        score: score,
+                        total: total,
+                        date: new Date(past).toISOString()
+                    });
+                }
+
+                writeData(data);
+                populateStudents();
+                studentSelect.value = students[0];
+                refreshView();
+                alert('Demo data loaded.');
             }
 
             function exportCSV() {
-                const data = read();
-                if (!data.length) { alert('No data'); return }
-                const rows = [['id', 'student', 'subject', 'score', 'total', 'date']];
-                data.forEach(a => rows.push([a.id || '', a.student || '', a.subject || '', a.score || 0, a.total || 0, a.date || '']));
-                const csv = rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
-                const blob = new Blob([csv], { type: 'text/csv' });
-                const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'baccalearn_attempts.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+                var data = readData();
+                if (!data.length) {
+                    alert('No data to export.');
+                    return;
+                }
+
+                var rows = [['id', 'student', 'subject', 'score', 'total', 'date']];
+                data.forEach(function (a) {
+                    rows.push([a.id || '', a.student || '', a.subject || '', a.score || 0, a.total || 0, a.date || '']);
+                });
+
+                var csv = rows.map(function (row) {
+                    return row.map(function (cell) {
+                        return '"' + String(cell).replace(/"/g, '""') + '"';
+                    }).join(',');
+                }).join('\n');
+
+                var blob = new Blob([csv], { type: 'text/csv' });
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'baccalearn_attempts.csv';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(url);
             }
 
-            function clearAll() { if (!confirm('Clear all attempts?')) return; localStorage.removeItem(KEY); populateStudents(); studentNameEl.textContent = 'Select a student'; studentMeta.textContent = 'No data'; lineChart.innerHTML = ''; subjectBreakdown.innerHTML = ''; recentTable.innerHTML = ''; statAttempts.textContent = '-'; statAvg.textContent = '-'; statBest.textContent = '-'; }
-
-            function addAttempt() {
-                const student = (r_name.value || '').trim(); if (!student) { alert('Provide student name'); return }
-                const subject = (r_subject.value || '').trim() || 'General';
-                const score = Number(r_score.value) || 0; const total = Number(r_total.value) || 100;
-                const arr = read(); arr.push({ id: uid(), student, subject, score, total, date: new Date().toISOString() }); write(arr);
-                populateStudents(); studentSelect.value = student; renderForStudent(student);
-                r_name.value = ''; r_subject.value = ''; r_score.value = ''; r_total.value = '';
+            function clearAll() {
+                if (!confirm('Clear all dashboard data?')) {
+                    return;
+                }
+                localStorage.removeItem(KEY);
+                populateStudents();
+                studentSelect.value = '';
+                refreshView();
             }
 
-            // helpers
-            function escapeHtml(s) { return String(s || '').replace(/[&<>\"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] || c)); }
-
-            // wiring
             populateStudents();
-            studentSelect.onchange = () => { const v = studentSelect.value; if (v) renderForStudent(v); };
-            refreshBtn.onclick = () => { populateStudents(); const v = studentSelect.value; if (v) renderForStudent(v); };
-            demoBtn.onclick = () => { generateDemo(); };
-            exportBtn.onclick = () => { exportCSV(); };
-            clearBtn.onclick = () => { clearAll(); };
-            r_add.onclick = () => { addAttempt(); };
+            refreshView();
 
+            refreshBtn.addEventListener('click', refreshView);
+            demoBtn.addEventListener('click', createDemoData);
+            exportBtn.addEventListener('click', exportCSV);
+            clearBtn.addEventListener('click', clearAll);
+            studentSelect.addEventListener('change', refreshView);
+            subjectFilter.addEventListener('input', refreshView);
+            dateFrom.addEventListener('change', refreshView);
+            dateTo.addEventListener('change', refreshView);
+            rAdd.addEventListener('click', addAttempt);
+
+            window.addEventListener('resize', function () {
+                var student = studentSelect.value;
+                if (!student) {
+                    return;
+                }
+                var filtered = filterAttempts(student);
+                var percents = filtered.map(function (a) {
+                    return Math.round((Number(a.score) / Math.max(1, Number(a.total))) * 100);
+                });
+                renderSparkline(percents);
+            });
         })();
     </script>
 </body>

@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BaccaLearn Resources</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --line: #d9e2ec;
+      --text: #102a43;
+      --muted: #486581;
+      --primary: #0f766e;
+      --primary-dark: #0b5e57;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .wrap {
+      width: min(1020px, 92%);
+      margin: 2rem auto;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .intro {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .btn:hover { background: var(--primary-dark); }
+
+    .back {
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 620px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Learning Resources</h1>
+    <p class="intro">Use these resources to study smarter: notes, books, and past exam practice.</p>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Complete Notes</h2>
+        <p>Subject-by-subject notes for BECE and WASSCE revision.</p>
+        <a class="btn" href="notes.html">Open Notes</a>
+      </article>
+
+      <article class="card">
+        <h2>Books</h2>
+        <p>Find textbooks and revision books by class and subject.</p>
+        <a class="btn" href="typebook.html">Open Books</a>
+      </article>
+
+      <article class="card">
+        <h2>Past Questions</h2>
+        <p>Practice with previous exam questions and mark schemes.</p>
+        <a class="btn" href="Past questions.html">Open Past Papers</a>
+      </article>
+    </section>
+
+    <a class="back" href="index.html">Back to Home</a>
+  </main>
+</body>
+</html>

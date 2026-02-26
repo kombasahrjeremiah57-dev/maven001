@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BaccaLearn Notes Hub</title>
+  <style>
+    :root {
+      --bg: #f3f7fb;
+      --card: #ffffff;
+      --line: #d9e2ec;
+      --text: #102a43;
+      --muted: #486581;
+      --primary: #0f766e;
+      --primary-dark: #0b5e57;
+      --soft: #e6fffa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #f8fbff, var(--bg));
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #0f766e;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .topbar-inner {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+    .brand { color: #fff; text-decoration: none; font-weight: 700; }
+    .nav-actions { display: flex; gap: 0.55rem; flex-wrap: wrap; }
+    .nav-actions a {
+      text-decoration: none;
+      color: #0f766e;
+      background: #fff;
+      border-radius: 8px;
+      padding: 0.42rem 0.72rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+    .page { width: min(1100px, 92%); margin: 1.4rem auto 2rem; }
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.2rem;
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+      margin-bottom: 1rem;
+    }
+    .hero h1 { font-size: clamp(1.4rem, 2vw, 2rem); margin-bottom: 0.45rem; }
+    .hero p { color: var(--muted); }
+    .section { margin-top: 1rem; }
+    .section h2 { margin-bottom: 0.65rem; font-size: clamp(1.2rem, 1.8vw, 1.6rem); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .card h3 { font-size: 1.04rem; }
+    .card p { color: var(--muted); font-size: 0.94rem; flex: 1; }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      background: var(--soft);
+      color: #115e59;
+      border: 1px solid #99f6e4;
+      border-radius: 8px;
+      padding: 0.42rem 0.66rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      align-self: flex-start;
+    }
+    .tips {
+      margin-top: 1rem;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+    .tips h2 { margin-bottom: 0.55rem; }
+    .tips ol { margin-left: 1.1rem; display: grid; gap: 0.35rem; }
+    @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+      .topbar-inner { padding: 0.55rem 0; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">BaccaLearn Notes Hub</a>
+      <div class="nav-actions">
+        <a href="index.html">Home</a>
+        <a href="resources.html">Resources</a>
+        <a href="typebook.html">Books</a>
+        <a href="prequiz.html">Quiz</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <h1>All Notes by Subject</h1>
+      <p>Open any subject below for detailed notes. This hub now links to separate lesson pages for easier study and navigation.</p>
+    </section>
+
+    <section class="section">
+      <h2>BECE Core Subjects</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>English Language</h3>
+          <p>Grammar, composition, comprehension, and oral English revision notes.</p>
+          <a class="btn" href="english-notes.html">Open Notes</a>
+        </article>
+
+        <article class="card">
+          <h3>Mathematics</h3>
+          <p>Number work, algebra, geometry, mensuration, and statistics fundamentals.</p>
+          <a class="btn" href="mathematics-notes.html">Open Notes</a>
+        </article>
+
+        <article class="card">
+          <h3>Integrated Science</h3>
+          <p>Life science, physical science, health, and environment topic coverage.</p>
+          <a class="btn" href="integrated-science-notes.html">Open Notes</a>
+        </article>
+
+        <article class="card">
+          <h3>Social Studies</h3>
+          <p>Citizenship, governance, national values, development, and conflict resolution.</p>
+          <a class="btn" href="social-studies-notes.html">Open Notes</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>WASSCE Subject Notes</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Biology</h3>
+          <p>Cell biology, physiology, genetics, and ecology essentials.</p>
+          <a class="btn" href="biology-notes.html">Open Notes</a>
+        </article>
+
+        <article class="card">
+          <h3>Chemistry</h3>
+          <p>Atomic structure, bonding, reactions, and mole calculations.</p>
+          <a class="btn" href="chemistry-notes.html">Open Notes</a>
+        </article>
+
+        <article class="card">
+          <h3>Physics</h3>
+          <p>Mechanics, waves, electricity, and practical physics fundamentals.</p>
+          <a class="btn" href="physics-notes.html">Open Notes</a>
+        </article>
+
+        <article class="card">
+          <h3>Government</h3>
+          <p>Constitution, institutions, political systems, and civic participation.</p>
+          <a class="btn" href="government-notes.html">Open Notes</a>
+        </article>
+
+        <article class="card">
+          <h3>Economics</h3>
+          <p>Scarcity, demand and supply, market behavior, and macroeconomics.</p>
+          <a class="btn" href="economics-notes.html">Open Notes</a>
+        </article>
+
+        <article class="card">
+          <h3>Literature in English</h3>
+          <p>Genres, literary devices, text analysis, and answering techniques.</p>
+          <a class="btn" href="literature-notes.html">Open Notes</a>
+        </article>
+
+        <article class="card">
+          <h3>ICT</h3>
+          <p>Computer fundamentals, internet skills, and cyber safety.</p>
+          <a class="btn" href="ict-notes.html">Open Notes</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="tips">
+      <h2>How to Use These Split Notes</h2>
+      <ol>
+        <li>Study one page per session and summarize key points in your notebook.</li>
+        <li>Take a quiz or practice questions immediately after each page.</li>
+        <li>Revisit weak pages using spaced revision every few days.</li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>

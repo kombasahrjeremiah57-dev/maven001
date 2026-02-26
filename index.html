@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,189 +6,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BaccaLearn - Exam Preparation</title>
     <link rel="stylesheet" href="Dignitary.css">
-    <link rel="Dignitary Jeremiah JAVA" href="Dignitary Jeremiah.js">
-
-    <!-- Routing removed: no automatic redirect to login. -->
-
-
 </head>
 
 <body>
-
-    <!-- Navigation Bar -->
-    <header>
-        <nav>
-
-            <h1>BaccaLearn</h1>
-            <ul>
+    <header class="site-header">
+        <nav class="navbar">
+            <a class="brand" href="#home">BaccaLearn</a>
+            <button id="menuToggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">Menu</button>
+            <ul id="mainNav" class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="resources.html">Resources</a></li>
-                <li><a href="quiz.html">Quiz</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#quiz">Quiz</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
                 <li id="authItem"><a id="authLink" href="log_in.html">Log in</a></li>
             </ul>
-
         </nav>
     </header>
 
-
-
-    <script>
-        // Mobile menu toggle
-        const toggle = document.getElementById('menuToggle');
-        const nav = document.getElementById('mainNav');
-        toggle.addEventListener('click', () => {
-            nav.classList.toggle('show');
-        });
-
-        // small accessible skip to content behaviour (optional)
-        // if you later add skip links, you can manage focus here.
-    </script>
-    <!-- Home Section -->
-    <section id="home" class="hero">
-        <h2>Welcome to BaccaLearn</h2>
-        <p>Your smart preparation hub for Baccalaureate Exams</p>
-
-    </section>
-
-
-
-
-    <!-- Resources Section -->
-    <section id="resources" class="content">
-        <h2>Study Resources</h2>
-        <div class="cards">
-            <div class="card">
-                <h3>📘 Books</h3>
-                <p>Access free books and study guides online.</p>
-                <br>
-                <a href="typebook.html">View Books</a>
+    <main>
+        <section id="home" class="hero">
+            <div class="container hero-inner">
+                <h1>Welcome to BaccaLearn</h1>
+                <p>Your smart preparation hub for Baccalaureate Exams</p>
             </div>
-            <div class="card">
-                <h3>📄 Past Papers</h3>
-                <p>Practice with previous Baccalaureate exam questions.</p>
-                <a href="Past questions.html">View Past Papers</a>
-            </div>
+        </section>
 
-            <div class="card">
-                <h3>📝 Notes</h3>
-                <p>Download concise notes for quick revision.</p>
-                <br>
-                <a href="notes.html">View Notes</a>
-            </div>
-            <div class="card">
-                <h3>Coding space</h3>
-                <p>Learn how to code with ease and fun </p>
-                <br>
-                <a href="coding.html">Code here</a>
-            </div>
-    </section>
+        <div class="page-sections">
+            <section id="resources" class="section">
+                <div class="container">
+                    <h2>Study Resources</h2>
+                    <div class="cards">
+                        <article class="card">
+                            <h3>Books</h3>
+                            <p>Access free books and study guides online.</p>
+                            <a href="typebook.html">View Books</a>
+                        </article>
 
-    <!-- Quiz Section -->
-    <section id="quiz" class="content">
-        <h2>Quick Quiz</h2>
-        <p><a href="prequiz.html"> click here <br></a> Loading question... </p>
-        <div id="options"></div>
-        <p id="result"></p>
-    </section>
+                        <article class="card">
+                            <h3>Past Papers</h3>
+                            <p>Practice with previous Baccalaureate exam questions.</p>
+                            <a href="Past questions.html">View Past Papers</a>
+                        </article>
 
-    <!-- About Section -->
-    <section id="about" class="content">
-        <h2>About BaccaLearn</h2>
-        <p>
-            BaccaLearn is a digital education platform designed to help students
-            preparing for their Baccalaureate exams. We provide resources,
-            past papers, and quizzes to boost your learning.
-        </p>
-    </section>
+                        <article class="card">
+                            <h3>Notes</h3>
+                            <p>Download concise notes for quick revision.</p>
+                            <a href="notes.html">View Notes</a>
+                        </article>
 
+                        <article class="card">
+                            <h3>Coding space</h3>
+                            <p>Learn how to code with ease and fun</p>
+                            <a href="coding.html">Code here</a>
+                        </article>
+                    </div>
+                </div>
+            </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 BaccaLearn | Built for Students</p>
+            <section id="quiz" class="section center-block">
+                <div class="container quiz-wrap">
+                    <h2>Quick Quiz</h2>
+                    <p><a href="prequiz.html">click here</a></p>
+                    <p>Loading question...</p>
+                    <div id="options"></div>
+                    <p id="result"></p>
+                </div>
+            </section>
+
+            <section id="about" class="section center-block about-wrap">
+                <div class="container">
+                    <h2>About BaccaLearn</h2>
+                    <p>
+                        BaccaLearn is a digital education platform designed to help students preparing for their
+                        Baccalaureate exams. We provide resources, past papers, and quizzes to boost your learning.
+                    </p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>Copyright 2025 BaccaLearn | Built for Students</p>
+        </div>
     </footer>
 
-    <script src="Dignitary Jeremiah.js"></script>
+    <a id="dashboard-fab" href="dashboard.html" title="Open Dashboard" aria-label="Open Dashboard">📊</a>
 
+    <script src="Dignitary.js"></script>
     <script>
-        // Replace the login link with a logout action when user is authenticated
         (function () {
+            var toggle = document.getElementById('menuToggle');
+            var nav = document.getElementById('mainNav');
+
+            if (toggle && nav) {
+                toggle.addEventListener('click', function () {
+                    var open = nav.classList.toggle('show');
+                    toggle.setAttribute('aria-expanded', String(open));
+                });
+            }
+
             try {
                 var authLink = document.getElementById('authLink');
-                var authItem = document.getElementById('authItem');
                 var username = localStorage.getItem('username');
                 var logged = localStorage.getItem('loggedIn');
-                if (logged === 'true') {
-                    if (authLink) {
-                        authLink.textContent = 'Logout (' + (username || 'me') + ')';
-                        authLink.href = '#';
-                        authLink.addEventListener('click', function (ev) {
-                            ev.preventDefault();
-                            try { localStorage.removeItem('loggedIn'); localStorage.removeItem('username'); } catch (e) { }
-                            // Routing removed: do not navigate. Update UI instead.
-                            authLink.textContent = 'Log in';
-                            authLink.href = 'Log_in.html';
-                            alert('You have been logged out.');
-                        });
-                    }
-                } else {
-                    // ensure it points to login page
-                    if (authLink) authLink.href = 'Log_in.html';
+
+                if (logged === 'true' && authLink) {
+                    authLink.textContent = 'Logout (' + (username || 'me') + ')';
+                    authLink.href = '#';
+                    authLink.addEventListener('click', function (ev) {
+                        ev.preventDefault();
+                        try {
+                            localStorage.removeItem('loggedIn');
+                            localStorage.removeItem('username');
+                        } catch (e) { }
+
+                        authLink.textContent = 'Log in';
+                        authLink.href = 'log_in.html';
+                        alert('You have been logged out.');
+                    });
+                } else if (authLink) {
+                    authLink.href = 'log_in.html';
                 }
             } catch (e) {
                 console.warn('Auth UI update failed', e);
             }
         })();
     </script>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="muted">BaccaLearn • Built by Jeremiah Sahr Komba [Dignitary Jeremiah] — 2025</div>
-        <small class="muted">This is a prototype. For student, integrate secure authentication, a proper wesite for BECE
-            and WASCE student</small>
-    </footer>
-
-    </div>
-</body>
-
-<!-- Floating dashboard button: top-right corner below navbar -->
-<style>
-    #dashboard-fab {
-        position: fixed;
-        top: 72px;
-        right: 18px;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: #0b63d6;
-        color: #fff;
-        text-decoration: none;
-        box-shadow: 0 8px 24px rgba(2, 6, 23, 0.18);
-        font-size: 20px
-    }
-
-    #dashboard-fab:focus {
-        outline: 3px solid rgba(11, 99, 214, 0.22);
-        outline-offset: 3px
-    }
-
-    @media(max-width:520px) {
-        #dashboard-fab {
-            top: 64px;
-            right: 12px;
-            width: 44px;
-            height: 44px;
-            font-size: 18px
-        }
-    }
-</style>
-<a id="dashboard-fab" href="dashboard.html" title="Open Dashboard" aria-label="Open Dashboard">📊</a>
-
-</body>
 </body>
 
 </html>

@@ -143,6 +143,17 @@
             }
         }
 
+        /* For medium screens */
+        @media (min-width: 768px) {
+            .choices {
+                gap: 40px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+        }
+
         /* For large screens */
         @media (min-width: 1200px) {
             .choices {
@@ -157,38 +168,47 @@
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <h1>Choose an Exam Level</h1>
-            <p>Select <strong>BECE</strong> (Junior) or <strong>WASSCE</strong> (Senior) to continue.</p>
-        </header>
-
-        <section class="choices">
-            <article class="card">
-                <div class="logo">B</div>
-                <div class="meta">
-                    <h2>BECE (Junior Secondary)</h2>
-                    <p>For students finishing junior secondary school. Prepares for the Basic Education Certificate
-                        Examination.</p>
-                    <a href="subjectsforbecestudent.html" class="btn">Go to BECE</a>
-                </div>
-            </article>
-
-            <article class="card">
-                <div class="logo">W</div>
-                <div class="meta">
-                    <h2>WASSCE (Senior Secondary)</h2>
-                    <p>For senior secondary students preparing for the West African Senior School Certificate
-                        Examination.</p>
-                    <a href="dropdown.html" class="btn">Go to WASSCE</a>
-                </div>
-            </article>
-        </section>
-
-        <footer>
-            Tip: Tap or click on your preferred option to continue.
-        </footer>
+    <div style="position:fixed;top:0;left:0;right:0;background:#ff6600;padding:8px;z-index:9999;display:flex;gap:8px">
+        <button onclick="window.location.href='index.html'"
+            style="background:#fff;color:#ff6600;border:0;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:600">🏠
+            Home</button>
+        <button onclick="window.history.back()"
+            style="background:rgba(255,255,255,0.2);color:#fff;border:0;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:600">←
+            Back</button>
     </div>
+    <div style="margin-top:50px">
+        <div class="container">
+            <header>
+                <h1>Choose an Exam Level</h1>
+                <p>Select <strong>BECE</strong> (Junior) or <strong>WASSCE</strong> (Senior) to continue.</p>
+            </header>
+
+            <section class="choices">
+                <article class="card">
+                    <div class="logo">B</div>
+                    <div class="meta">
+                        <h2>BECE (Junior Secondary)</h2>
+                        <p>For students finishing junior secondary school. Prepares for the Basic Education Certificate
+                            Examination.</p>
+                        <a href="subjectsforbecestudent.html" class="btn">Go to BECE</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="logo">W</div>
+                    <div class="meta">
+                        <h2>WASSCE (Senior Secondary)</h2>
+                        <p>For senior secondary students preparing for the West African Senior School Certificate
+                            Examination.</p>
+                        <a href="dropdown.html" class="btn">Go to WASSCE</a>
+                    </div>
+                </article>
+            </section>
+
+            <footer>
+                Tip: Tap or click on your preferred option to continue.
+            </footer>
+        </div>
 </body>
 
 </html>

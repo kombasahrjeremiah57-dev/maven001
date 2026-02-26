@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrated Science Notes</title>
+  <style>
+    :root {
+      --bg: #f3f7fb;
+      --card: #ffffff;
+      --line: #d9e2ec;
+      --text: #102a43;
+      --muted: #486581;
+      --primary: #0f766e;
+      --primary-dark: #0b5e57;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #f8fbff, var(--bg));
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .topbar {
+      background: #0f766e;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .topbar-inner {
+      width: min(1050px, 92%);
+      margin: 0 auto;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+    .brand { color: #fff; text-decoration: none; font-weight: 700; }
+    .nav { display: flex; gap: 0.55rem; flex-wrap: wrap; }
+    .nav a {
+      text-decoration: none;
+      color: #0f766e;
+      background: #fff;
+      border-radius: 8px;
+      padding: 0.4rem 0.7rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+    .wrap { width: min(1050px, 92%); margin: 1.2rem auto 2rem; }
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.15rem;
+      margin-bottom: 0.9rem;
+    }
+    h1 { font-size: clamp(1.4rem, 2vw, 2rem); margin-bottom: 0.4rem; }
+    .subtitle { color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+    }
+    .card h2 { font-size: 1.08rem; margin-bottom: 0.5rem; }
+    .card ul { margin-left: 1rem; display: grid; gap: 0.35rem; }
+    .foot {
+      margin-top: 1rem;
+      color: #334e68;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+      .topbar-inner { padding: 0.5rem 0; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">BaccaLearn</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="resources.html">Resources</a>
+        <a href="notes.html">All Notes</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Integrated Science Notes</h1>
+      <p class="subtitle">Life science, physical science, health, and environment topics.</p>
+    </section>
+    <div class="grid">
+          <section class="card">
+      <h2>Life Science</h2>
+      <ul>
+        <li>Cell structure and organization of living things.</li>
+<li>Human body systems and major organs.</li>
+<li>Nutrition classes and deficiency disorders.</li>
+<li>Plant processes: photosynthesis and transport.</li>
+
+      </ul>
+    </section>    <section class="card">
+      <h2>Physical Science</h2>
+      <ul>
+        <li>States of matter and particle behavior.</li>
+<li>Force, motion, work, and energy.</li>
+<li>Heat transfer: conduction, convection, radiation.</li>
+<li>Light and sound properties.</li>
+
+      </ul>
+    </section>    <section class="card">
+      <h2>Chemistry Basics</h2>
+      <ul>
+        <li>Elements, compounds, mixtures.</li>
+<li>Acids, bases, and salts indicators.</li>
+<li>Simple chemical reactions and equations.</li>
+<li>Separation techniques for mixtures.</li>
+
+      </ul>
+    </section>    <section class="card">
+      <h2>Environment and Health</h2>
+      <ul>
+        <li>Ecosystem, food chain, and food web.</li>
+<li>Pollution sources and prevention.</li>
+<li>Personal hygiene and disease prevention.</li>
+<li>Conservation and sustainable resource use.</li>
+
+      </ul>
+    </section>
+    </div>
+    <p class="foot">Practice each section with quiz and past questions for stronger exam performance.</p>
+  </main>
+</body>
+</html>
